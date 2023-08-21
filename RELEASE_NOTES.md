@@ -13,6 +13,7 @@ This is the first beta release.
 ### ✨ New Features
 
 * `Printer` is a protocol that defines a printer.
+* `PrinterError` is a printer-specific error enum.
 * `PrinterView` is a `SwiftUI` protocol that adds printing capabilities to SwiftUI views.
 * `PrintItem` is an enum that describes the currently supported item types.
 * `StandardPrinter` is a standard printer implementation.
