@@ -17,7 +17,19 @@ import UIKit
  */
 public class StandardPrinter: Printer {
     
-    public init() {}
+    /**
+     Create a standard printer instance.
+     
+     - Parameters:
+       - jobName: The printer job name, by default "Standard Print Job".
+     */
+    public init(
+        jobName: String = "Standard Print Job"
+    ) {
+        self.jobName = jobName
+    }
+    
+    private let jobName: String
     
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
@@ -25,7 +37,7 @@ public class StandardPrinter: Printer {
         }
     }
     
-    public func printItem(_ item: PrintItem) {
+    public func print(_ item: PrintItem) {
         switch item {
         case .pdf(let url): printPdf(at: url)
         }
@@ -37,7 +49,7 @@ private extension StandardPrinter {
     func printPdf(at url: URL) {
         let printInfo = UIPrintInfo(dictionary: nil)
         printInfo.outputType = .general
-        printInfo.jobName = "Standard Print Job"
+        printInfo.jobName = jobName
         let controller = UIPrintInteractionController.shared
         controller.printInfo = printInfo
         controller.printingItem = url

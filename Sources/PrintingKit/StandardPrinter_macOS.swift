@@ -25,7 +25,7 @@ public class StandardPrinter: Printer {
         }
     }
     
-    public func printItem(_ item: PrintItem) {
+    public func print(_ item: PrintItem) {
         switch item {
         case .pdf(let url): printPdf(at: url)
         }

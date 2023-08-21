@@ -22,5 +22,13 @@ public protocol Printer {
     /**
      Print the provided item.
      */
-    func printItem(_ item: PrintItem)
+    func print(_ item: PrintItem)
+}
+
+public extension Printer where Self == StandardPrinter {
+    
+    /// Create a standard printer.
+    static var standard: Printer {
+        Self()
+    }
 }

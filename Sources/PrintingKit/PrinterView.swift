@@ -20,13 +20,13 @@ public extension PrinterView {
      Print a printable item.
      
      - Parameters:
-       - items: The items to print.
-       - printable: The printable to use, by default a standard printer.
+       - item: The item to print.
+       - printer: The printer to use, by default `.standard`.
      */
     func print(
         _ item: PrintItem,
-        with printer: Printer = StandardPrinter()
+        with printer: Printer = .standard
     ) {
-        printer.printItem(item)
+        printer.print(item)
     }
 }
