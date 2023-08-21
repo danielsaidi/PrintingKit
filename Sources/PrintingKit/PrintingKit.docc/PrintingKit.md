@@ -7,9 +7,9 @@ PrintingKit helps you integrate with external REST APIs.
 
 ![Library logotype](Logo.png)
 
-PrintingKit ...
+PrintingKit helps you print PDF documents and other items in Swift and SwiftUI.
 
-PrintingKit supports ... TODO
+PrintingKit supports `iOS 13` and `macOS 11`.
 
 
 
