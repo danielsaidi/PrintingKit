@@ -5,19 +5,23 @@ import PackageDescription
 
 let package = Package(
     name: "PrintingKit",
+    platforms: [
+        .iOS(.v13),
+        .macOS(.v11)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "PrintingKit",
-            targets: ["PrintingKit"]),
+            targets: ["PrintingKit"]
+        )
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "PrintingKit"),
+            name: "PrintingKit"
+        ),
         .testTarget(
             name: "PrintingKitTests",
-            dependencies: ["PrintingKit"]),
+            dependencies: ["PrintingKit"]
+        )
     ]
 )
