@@ -17,32 +17,16 @@
 
 ## About PrintingKit
 
-PrintingKit helps you print PDF documents and other items in Swift and SwiftUI.
+PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
-For instance, to print a PDF in SwiftUI, just do this:
+For instance, to print a PDF document in the main bundle, just do this:
 
 ```swift
-struct MyView: View {
-
-    private let pdfUrl = Bundle.main.url(
-        forResource: "document", 
-        withExtension: "pdf"
-    )
-
-    var body: some View {
-        Button("Print document") {
-            if let pdfUrl {
-                StandardPrinter().print(.pdf(at: pdfUrl))
-            }
-        }
-    }
-}
+let bundle = Bundle.main
+let url = bundle.url(forResource: "document", withExtension: "pdf")
+let item = PrintItem.pdf(at: url)
+try? StandardPrinter().print(item)
 ```
-
-For now, PrintingKit supports the following item types:
-
-* `.pdf(at:)` - a PDF at a certain URL.
-* `.pdfWithName(_:extension:in:)` - a named PDF in a certain bundle.
 
 PrintingKit supports `iOS 13` and `macOS 11`.
 
@@ -63,6 +47,24 @@ If you prefer to not have external dependencies, you can also just copy the sour
 ## Getting started
 
 The [online documentation][Documentation] has a [getting started][Getting-Started] guide that helps you get started with PrintingKit.
+
+For instance, to print a PDF in SwiftUI, just do this:
+
+```swift
+struct MyView: View {
+
+    var body: some View {
+        Button("Print document") {
+            let bundle = Bundle.main
+            let url = bundle.url(forResource: "doc", withExtension: "pdf")
+            let item = PrintItem.pdf(at: url)
+            try? StandardPrinter().print(item)
+        }
+    }
+}
+```
+
+For more information, see the [getting started][Getting-Started].
 
 
 

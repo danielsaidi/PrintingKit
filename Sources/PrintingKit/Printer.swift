@@ -22,7 +22,7 @@ public protocol Printer {
     /**
      Print the provided item.
      */
-    func print(_ item: PrintItem)
+    func print(_ item: PrintItem) throws
 }
 
 public extension Printer where Self == StandardPrinter {

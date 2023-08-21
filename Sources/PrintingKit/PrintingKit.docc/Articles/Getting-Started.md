@@ -12,55 +12,45 @@ For instance, to print a PDF in SwiftUI, just do this:
 ```swift
 struct MyView: View {
 
-    private let pdfUrl = Bundle.main.url(
-        forResource: "document", 
-        withExtension: "pdf"
-    )
-
     var body: some View {
         Button("Print document") {
-            if let pdfUrl {
-                StandardPrinter().print(.pdf(at: pdfUrl))
-            }
+            let bundle = Bundle.main
+            let url = bundle.url(forResource: "doc", withExtension: "pdf")
+            let item = PrintItem.pdf(at: url)
+            try? StandardPrinter().print(item)
         }
     }
 }
 ```
 
+You can also make views implement ``PrinterView`` to make printing even easier.
 
-## Available item types
-
-For now, PrintingKit supports the following item types:
-
-* ``PrintItem/pdf(at:)`` - a PDF at a certain URL.
-* ``PrintItem/pdfWithName(_:extension:in:)`` - a named PDF in a certain bundle.
-
-More types may be added in the future.
-
-
-
-## SwiftUI extensions
-
-To make printing in SwiftUI even easier, any view can implement the ``PrinterView`` protocol to get access to more functionality.
-
-For instance, you then don't have to provide a printer instance:
+For instance, you then don't have to specify a ``Printer``:
 
 ```swift
 struct MyView: View, PrinterView {
 
-    private let url = Bundle.main.url(
-        forResource: "document", 
-        withExtension: "pdf"
-    )
-
     var body: some View {
         Button("Print document") {
-            if let url {
-                print(.pdf(at: url)
-            }
+            let bundle = Bundle.main
+            let url = bundle.url(forResource: "doc", withExtension: "pdf")
+            let item = PrintItem.pdf(at: url)
+            try? printItem(item)
         }
     }
 }
 ```
 
 More view-specific functionality may be added in the future.
+
+
+## Available item types
+
+For now, PrintingKit supports the following print item types:
+
+* ``PrintItem/.image(at:)`` - a JPG or PNG file at a certain URL.
+* ``PrintItem/.pdf(at:)`` - a PDF document at a certain URL.
+
+Note that some items currently can't be printed on some platforms.
+
+More types may be added in the future.

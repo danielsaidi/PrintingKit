@@ -11,28 +11,28 @@ import Foundation
 /**
  This enum defines all printable types that are supported by
  this library.
+ 
+ The URL-based item types use optional URLs as a convenience,
+ to make it easier to create item types. All printers in the
+ library will throw a ``PrinterError`` if the URL is not set
+ for the provided item.
  */
 public enum PrintItem {
     
-    /// A PDF document at a certain URL.
-    case pdf(at: URL)
+    /// An JPG or PNG image at a certain URL.
+    case image(at: URL?)
     
-    /// A PDF document in a certain bundle.
-    case pdfWithName(String,
-        extension: String,
-        in: Bundle
-    )
+    /// A PDF document at a certain URL.
+    case pdf(at: URL?)
 }
 
-extension PrintItem {
+public extension PrintItem {
     
-    /// An optional URL that is used by some items.
-    var url: URL? {
+    /// The item's source URL, if any.
+    var sourceUrl: URL? {
         switch self {
-        case .pdf(let url):
-            return url
-        case .pdfWithName(let name, let ext, let bundle):
-            return bundle.url(forResource: name, withExtension: ext)
+        case .image(let url): return url
+        case .pdf(let url): return url
         }
     }
 }
