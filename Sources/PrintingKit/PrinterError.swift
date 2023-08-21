@@ -13,6 +13,9 @@ import Foundation
  */
 public enum PrinterError: Error {
     
+    /// The operation could not generate a cache file.
+    case cachesDirectoryDoesNotExist
+    
     /// The print item is configured with an invalid URL.
     case invalidUrl
     

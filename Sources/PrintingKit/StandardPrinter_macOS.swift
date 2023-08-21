@@ -21,15 +21,19 @@ public class StandardPrinter: Printer {
     
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
-        case .image: return false
-        case .pdf: return true
+        case .imageFile: return false
+        case .imageData: return false
+        case .pdfFile: return true
+        case .pdfData(let data): return data.canCreateExportFile
         }
     }
     
     public func print(_ item: PrintItem) throws {
         switch item {
-        case .image: throw PrinterError.unsupportedOperation
-        case .pdf(let url): try printPdf(at: url)
+        case .imageFile: throw PrinterError.unsupportedOperation
+        case .imageData: throw PrinterError.unsupportedOperation
+        case .pdfFile(let url): try printPdf(at: url)
+        case .pdfData(let data): try printPdf(at: data.createExportFile(withExtension: "pdf"))
         }
     }
 }
