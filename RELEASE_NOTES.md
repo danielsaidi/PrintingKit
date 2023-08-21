@@ -14,7 +14,7 @@ This version adds PDF utilities and more print item types.
 
 * `Pdf` is a new namespace with PDF-specific types.
 * `PdfDataSource` is a new protocol that is implemented by `NSAttributedString`.
-* `PrintItem` has new `.imageData` and `.pdfData` types.
+* `PrintItem` has new `.imageData`, `.pdfData` and `.view` types.
 * `PrinterView` has a new `canPrintItem(:with:)` function.
 
 ### 🚨 Breaking changes

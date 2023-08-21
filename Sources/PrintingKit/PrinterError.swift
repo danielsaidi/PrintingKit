@@ -19,6 +19,9 @@ public enum PrinterError: Error {
     /// The print item is configured with an invalid URL.
     case invalidUrl
     
+    /// The print item is configured with an invalid view.
+    case invalidViewData
+    
     /// The operation is not supported by the platform.
     case unsupportedOperation
 }

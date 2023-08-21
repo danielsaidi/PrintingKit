@@ -15,6 +15,11 @@ import Foundation
 public protocol Printer {
     
     /**
+     Whether or not the printer can print images.
+     */
+    var canPrintImages: Bool { get }
+    
+    /**
      Whether or not the printer can print the provided item.
      */
     func canPrint(_ item: PrintItem) -> Bool
@@ -23,6 +28,14 @@ public protocol Printer {
      Print the provided item.
      */
     func print(_ item: PrintItem) throws
+}
+
+public extension Printer {
+    
+    /**
+     Whether or not the printer can print views.
+     */
+    var canPrintViews: Bool { canPrintImages }
 }
 
 public extension Printer where Self == StandardPrinter {

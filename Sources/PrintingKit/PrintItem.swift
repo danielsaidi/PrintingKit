@@ -6,7 +6,7 @@
 //  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 /**
  This enum defines all printable types that are supported by
@@ -29,6 +29,44 @@ public enum PrintItem {
     
     /// A PDF document file at a certain URL.
     case pdfFile(at: URL?)
+}
+
+@available(iOS 16.0, macOS 13.0, *)
+public extension PrintItem {
+    
+    /**
+     Try to create an ``PrintItem/imageData(_:)`` print item
+     by rendering the provided view to an image.
+     
+     - Parameters:
+       - view: The view to print.
+       - scale: The scale to print in, by default `2`.
+     */
+    @MainActor
+    static func view<Content: View>(
+        _ view: Content,
+        withScale scale: CGFloat = 2
+    ) throws -> PrintItem {
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = scale
+        guard let data = renderer.imageData else { throw PrinterError.invalidViewData }
+        return imageData(data)
+    }
+}
+
+@MainActor
+@available(iOS 16.0, macOS 13.0, *)
+extension ImageRenderer {
+    
+    var imageData: Data? {
+        #if os(iOS)
+        uiImage?.pngData()
+        #elseif os(macOS)
+        nsImage?.jpegData(compressionQuality: 1)
+        #else
+        nil
+        #endif
+    }
 }
 
 extension Data {
@@ -75,3 +113,20 @@ private extension FileManager {
         return fileUrl
     }
 }
+
+#if canImport(AppKit)
+import AppKit
+
+private extension NSImage {
+    
+    var cgImage: CGImage? {
+        cgImage(forProposedRect: nil, context: nil, hints: nil)
+    }
+
+    func jpegData(compressionQuality: CGFloat) -> Data? {
+        guard let image = cgImage else { return nil }
+        let bitmap = NSBitmapImageRep(cgImage: image)
+        return bitmap.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
+    }
+}
+#endif

@@ -19,10 +19,12 @@ public class StandardPrinter: Printer {
     
     public init() {}
     
+    public var canPrintImages: Bool { return false }
+    
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
-        case .imageData: return false
-        case .imageFile: return false
+        case .imageData: return canPrintImages
+        case .imageFile: return canPrintImages
         case .pdfData(let data): return data.canCreateExportFile
         case .pdfFile: return true
         }

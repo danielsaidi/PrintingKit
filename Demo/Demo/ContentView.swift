@@ -11,9 +11,21 @@ import SwiftUI
 
 extension Image {
     
+    static let checkmark = symbol("checkmark")
     static let eye = symbol("eye")
     static let image = symbol("photo")
     static let pdf = symbol("doc.richtext")
+    static let view = symbol("square")
+    
+    static var checkmarkBadge: some View {
+        Image.checkmark
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .symbolVariant(.circle)
+            .symbolVariant(.fill)
+            .foregroundStyle(.white, .green)
+            .shadow(radius: 2, x: 0, y: 2)
+    }
     
     static func symbol(_ name: String) -> Image {
         Image(systemName: name)
@@ -28,21 +40,47 @@ struct ContentView: View, PrinterView {
     var body: some View {
         NavigationStack {
             List {
-                Section("Files") {
-                    listItem("Print PDF file", .pdf, printItem(for: "document", "pdf"))
-                    listItem("Print JPG file", .image, printItem(for: "clouds", "jpg"))
-                    listItem("Print PNG file", .image, printItem(for: "graphics", "png"))
-                }
-                Section("Data") {
-                    listItem("Print PDF data", .pdf, printItemWithData(from: "document", "pdf"))
-                    listItem("Print JPG data", .image, printItemWithData(from: "clouds", "jpg"))
-                    listItem("Print PNG data", .image, printItemWithData(from: "graphics", "png"))
-                }
+                content
             }
-            .buttonStyle(.plain)
             .navigationTitle("PrinterKit Demo")
         }
         .quickLookPreview($quickLookUrl)
+    }
+}
+
+private extension ContentView {
+    
+    @ViewBuilder
+    var content: some View {
+        Group {
+            Section("Files") {
+                listItem("Print PDF file", .pdf, fileItem(for: "document", "pdf"))
+                listItem("Print JPG file", .image, fileItem(for: "clouds", "jpg"))
+                listItem("Print PNG file", .image, fileItem(for: "graphics", "png"))
+            }
+            Section("Data") {
+                listItem("Print PDF file data", .pdf, dataItem(for: "document", "pdf"))
+                listItem("Print JPG file data", .image, dataItem(for: "clouds", "jpg"))
+                listItem("Print PNG file data", .image, dataItem(for: "graphics", "png"))
+            }
+            if canPrintViews() {
+                Section("View") {
+                    printContent
+                    Button("Print this view") {
+                        printViewAsTask(printContent)
+                    }
+                }
+            }
+        }.buttonStyle(.plain)
+    }
+    
+    var printContent: some View {
+        ZStack {
+            Color.black
+            Color.green.opacity(0.4)
+            Image.checkmarkBadge
+                .padding(20)
+        }.cornerRadius(10)
     }
 }
 
@@ -94,6 +132,25 @@ private extension ContentView {
         }.disabled(item == nil)
     }
     
+    func dataItem(for file: String, _ ext: String) -> PrintItem? {
+        guard
+            let url = fileUrl(for: file, ext),
+            let data = try? Data(contentsOf: url)
+        else { return nil }
+        switch ext {
+        case "pdf": return .pdfData(data)
+        default: return .imageData(data)
+        }
+    }
+    
+    func fileItem(for file: String, _ ext: String) -> PrintItem {
+        let url = fileUrl(for: file, ext)
+        switch ext {
+        case "pdf": return .pdfFile(at: url)
+        default: return .imageFile(at: url)
+        }
+    }
+    
     func quickLookButton(
         for url: URL
     ) -> some View {
@@ -104,35 +161,16 @@ private extension ContentView {
         }
     }
     
+    func fileUrl(for file: String, _ ext: String) -> URL? {
+        Bundle.main.url(forResource: file, withExtension: ext)
+    }
+    
     func tryPrint(_ item: PrintItem) {
         do {
             try printItem(item)
         } catch {
             print(error)
         }
-    }
-    
-    func printItem(for file: String, _ ext: String) -> PrintItem {
-        let url = printItemUrl(for: file, ext)
-        switch ext {
-        case "pdf": return .pdfFile(at: url)
-        default: return .imageFile(at: url)
-        }
-    }
-    
-    func printItemWithData(from file: String, _ ext: String) -> PrintItem? {
-        guard
-            let url = printItemUrl(for: file, ext),
-            let data = try? Data(contentsOf: url)
-        else { return nil }
-        switch ext {
-        case "pdf": return .pdfData(data)
-        default: return .imageData(data)
-        }
-    }
-    
-    func printItemUrl(for file: String, _ ext: String) -> URL? {
-        Bundle.main.url(forResource: file, withExtension: ext)
     }
 }
 

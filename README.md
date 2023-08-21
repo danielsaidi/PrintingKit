@@ -64,6 +64,9 @@ struct MyView: View {
 }
 ```
 
+You can also let your views implement `PrinterView` to make printing even easier.
+
+
 For more information, see the [getting started][Getting-Started].
 
 
