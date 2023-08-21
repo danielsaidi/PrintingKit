@@ -1,9 +1,13 @@
+# SPM defaults
 .DS_Store
 /.build
+.swiftpm/
 /Packages
-/*.xcodeproj
-xcuserdata/
-DerivedData/
-.swiftpm/config/registries.json
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
-.netrc
+
+# Fastlane
+Fastlane/report.xml
+Fastlane/Preview.html
+Fastlane/test_output
+Fastlane/README.md
+
+**/*.xcuserstate
