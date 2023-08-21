@@ -27,20 +27,20 @@ public class StandardPrinter: Printer {
     
     public func printItem(_ item: PrintItem) {
         switch item {
-        case .pdf: printPdf(item)
+        case .pdf(let url): printPdf(at: url)
         }
     }
 }
 
 private extension StandardPrinter {
     
-    func printPdf(_ item: PrintItem) {
+    func printPdf(at url: URL) {
         let printInfo = UIPrintInfo(dictionary: nil)
         printInfo.outputType = .general
         printInfo.jobName = "Standard Print Job"
         let controller = UIPrintInteractionController.shared
         controller.printInfo = printInfo
-        controller.printingItem = item
+        controller.printingItem = url
         controller.present(animated: true)
     }
 }
