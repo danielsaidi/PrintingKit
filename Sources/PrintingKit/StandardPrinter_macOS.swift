@@ -23,6 +23,7 @@ public class StandardPrinter: Printer {
     
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
+        case .attributedString: return true
         case .imageData: return canPrintImages
         case .imageFile: return canPrintImages
         case .pdfData(let data): return data.canCreateExportFile
@@ -32,17 +33,31 @@ public class StandardPrinter: Printer {
     
     public func print(_ item: PrintItem) throws {
         switch item {
+        case .attributedString(let string, let config): try print(string, withConfiguration: config)
         case .imageData: throw PrinterError.unsupportedOperation
         case .imageFile: throw PrinterError.unsupportedOperation
-        case .pdfData(let data): try printPdf(at: data.createExportFile(withExtension: "pdf"))
-        case .pdfFile(let url): try printPdf(at: url)
+        case .pdfData(let data): try print(pdfData: data)
+        case .pdfFile(let url): try print(pdfFileAt: url)
         }
     }
 }
 
 private extension StandardPrinter {
     
-    func printPdf(at url: URL?) throws {
+    func print(
+        _ string: NSAttributedString,
+        withConfiguration config: Pdf.PageConfiguration
+    ) throws {
+        let data = try string.pdfData(withConfiguration: config)
+        try print(pdfData: data)
+    }
+    
+    func print(pdfData data: Data) throws {
+        let url = try data.createExportFile(withExtension: "pdf")
+        try print(pdfFileAt: url)
+    }
+    
+    func print(pdfFileAt url: URL?) throws {
         guard let url else { throw PrinterError.invalidUrl }
         let view = PDFView()
         let window = NSWindow()

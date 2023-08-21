@@ -25,6 +25,7 @@ public class StandardPrinter: Printer {
     
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
+        case .attributedString: return true
         case .imageData(let data): return data.canCreateExportFile
         case .imageFile: return true
         case .pdfData(let data): return data.canCreateExportFile
@@ -34,17 +35,42 @@ public class StandardPrinter: Printer {
     
     public func print(_ item: PrintItem) throws {
         switch item {
-        case .imageData(let data): try printItem(at: data.createExportFile(withExtension: "img"))
-        case .imageFile(let url): try printItem(at: url)
-        case .pdfData(let data): try printItem(at: data.createExportFile(withExtension: "pdf"))
-        case .pdfFile(let url): try printItem(at: url)
+        case .attributedString(let string, let config): try print(string, withPageConfiguration: config)
+        case .imageData(let data): try print(imageData: data)
+        case .imageFile(let url): try print(fileAt: url)
+        case .pdfData(let data): try print(pdfData: data)
+        case .pdfFile(let url): try print(fileAt: url)
         }
     }
 }
 
 private extension StandardPrinter {
     
-    func printItem(at url: URL?) throws {
+    func print(
+        _ data: Data,
+        withFileExtension ext: String
+    ) throws {
+        let url = try data.createExportFile(withExtension: ext)
+        try print(fileAt: url)
+    }
+    
+    func print(
+        _ string: NSAttributedString,
+        withPageConfiguration config: Pdf.PageConfiguration
+    ) throws {
+        let data = try string.pdfData(withConfiguration: config)
+        try print(pdfData: data)
+    }
+    
+    func print(imageData data: Data) throws {
+        try print(data, withFileExtension: "img")
+    }
+    
+    func print(pdfData data: Data) throws {
+        try print(data, withFileExtension: "pdf")
+    }
+    
+    func print(fileAt url: URL?) throws {
         guard let url else { throw PrinterError.invalidUrl }
         let info = UIPrintInfo(dictionary: nil)
         info.outputType = .general

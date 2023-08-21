@@ -28,7 +28,7 @@ public extension PrinterView {
     func canPrintImages(
         with printer: Printer = .standard
     ) -> Bool {
-        return printer.canPrintImages
+        printer.canPrintImages
     }
     
     /**
@@ -55,7 +55,7 @@ public extension PrinterView {
     func canPrintViews(
         with printer: Printer = .standard
     ) -> Bool {
-        return printer.canPrintViews
+        printer.canPrintViews
     }
     
     /**

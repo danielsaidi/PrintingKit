@@ -18,6 +18,9 @@ import SwiftUI
  */
 public enum PrintItem {
     
+    /// An attributed string with a PDF page configuration.
+    case attributedString(NSAttributedString, configuration: Pdf.PageConfiguration = .standard)
+    
     /// JPG or PNG image data.
     case imageData(Data)
     
@@ -33,6 +36,22 @@ public enum PrintItem {
 
 @available(iOS 16.0, macOS 13.0, *)
 public extension PrintItem {
+    
+    /**
+     Build an ``PrintItem/attributedString(_:configuration:)``
+     print item with a plain string.
+     
+     - Parameters:
+       - string: The string to print.
+       - configuration: The page configuration to use, by default `.standard`.
+     */
+    static func string(
+        _ string: String,
+        configuration: Pdf.PageConfiguration = .standard
+    ) -> PrintItem {
+        let str = NSAttributedString(string: string)
+        return .attributedString(str, configuration: configuration)
+    }
     
     /**
      Try to create an ``PrintItem/imageData(_:)`` print item

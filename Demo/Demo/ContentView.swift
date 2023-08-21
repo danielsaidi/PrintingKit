@@ -15,6 +15,7 @@ extension Image {
     static let eye = symbol("eye")
     static let image = symbol("photo")
     static let pdf = symbol("doc.richtext")
+    static let text = symbol("textformat.abc")
     static let view = symbol("square")
     
     static var checkmarkBadge: some View {
@@ -37,11 +38,26 @@ struct ContentView: View, PrinterView {
     @State
     private var quickLookUrl: URL?
     
+    @State
+    private var text = ""
+    
     var body: some View {
         NavigationStack {
             List {
-                content
+                Section("Files") {
+                    listItem("Print PDF file", .pdf, fileItem(for: "document", "pdf"))
+                    listItem("Print JPG file", .image, fileItem(for: "clouds", "jpg"))
+                    listItem("Print PNG file", .image, fileItem(for: "graphics", "png"))
+                }
+                Section("Data") {
+                    listItem("Print PDF file data", .pdf, dataItem(for: "document", "pdf"))
+                    listItem("Print JPG file data", .image, dataItem(for: "clouds", "jpg"))
+                    listItem("Print PNG file data", .image, dataItem(for: "graphics", "png"))
+                }
+                textSection
+                viewSection
             }
+            .buttonStyle(.plain)
             .navigationTitle("PrinterKit Demo")
         }
         .quickLookPreview($quickLookUrl)
@@ -50,31 +66,24 @@ struct ContentView: View, PrinterView {
 
 private extension ContentView {
     
-    @ViewBuilder
-    var content: some View {
-        Group {
-            Section("Files") {
-                listItem("Print PDF file", .pdf, fileItem(for: "document", "pdf"))
-                listItem("Print JPG file", .image, fileItem(for: "clouds", "jpg"))
-                listItem("Print PNG file", .image, fileItem(for: "graphics", "png"))
-            }
-            Section("Data") {
-                listItem("Print PDF file data", .pdf, dataItem(for: "document", "pdf"))
-                listItem("Print JPG file data", .image, dataItem(for: "clouds", "jpg"))
-                listItem("Print PNG file data", .image, dataItem(for: "graphics", "png"))
-            }
-            if canPrintViews() {
-                Section("View") {
-                    printContent
-                    Button("Print this view") {
-                        printViewAsTask(printContent)
-                    }
+    var textSection: some View {
+        Section("Text") {
+            TextField("Type text here and tap the print button", text: $text, axis: .vertical)
+                .lineLimit(3, reservesSpace: true)
+            Group {
+                printButton("Print as plain text", .text) {
+                    try? printItem(.string(text, configuration: .standard))
+                }
+                printButton("Print as attributed string", .text) {
+                    let str = NSAttributedString(string: text)
+                    try? printItem(.attributedString(str, configuration: .standard))
                 }
             }
-        }.buttonStyle(.plain)
+            .disabled(text.isEmpty)
+        }
     }
     
-    var printContent: some View {
+    var viewContent: some View {
         ZStack {
             Color.black
             Color.green.opacity(0.4)
@@ -82,12 +91,25 @@ private extension ContentView {
                 .padding(20)
         }.cornerRadius(10)
     }
+    
+    @ViewBuilder
+    var viewSection: some View {
+        if canPrintViews() {
+            Section("View") {
+                viewContent
+                printButton("Print this view", .view) {
+                    printViewAsTask(viewContent)
+                }
+            }
+        }
+    }
 }
 
 private extension PrintItem {
     
     var quickLookUrl: URL? {
         switch self {
+        case .attributedString: return nil
         case .imageData: return nil
         case .imageFile(let url): return url
         case .pdfData: return nil
@@ -106,7 +128,13 @@ private extension ContentView {
     ) -> some View {
         if canPrintItem(item) {
             HStack {
-                printButton(title, icon, item)
+                printButton(title, icon) {
+                    if let item {
+                        tryPrint(item)
+                    } else {
+                        print("Invalid item")
+                    }
+                }.disabled(item == nil)
                 if let url = item?.quickLookUrl {
                     quickLookButton(for: url)
                 }
@@ -117,19 +145,13 @@ private extension ContentView {
     func printButton(
         _ title: String,
         _ icon: Image,
-        _ item: PrintItem?
+        _ action: @escaping () -> Void
     ) -> some View {
-        Button {
-            if let item {
-                tryPrint(item)
-            } else {
-                print("Invalid item")
-            }
-        } label: {
+        Button(action: action) {
             Label { Text(title) } icon: { icon }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
-        }.disabled(item == nil)
+        }
     }
     
     func dataItem(for file: String, _ ext: String) -> PrintItem? {

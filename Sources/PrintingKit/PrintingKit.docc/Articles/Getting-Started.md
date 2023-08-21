@@ -16,7 +16,7 @@ struct MyView: View {
         Button("Print document") {
             let bundle = Bundle.main
             let url = bundle.url(forResource: "doc", withExtension: "pdf")
-            let item = PrintItem.pdf(at: url)
+            let item = PrintItem.pdfFile(at: url)
             try? StandardPrinter().print(item)
         }
     }
@@ -25,18 +25,17 @@ struct MyView: View {
 
 You can also let your views implement ``PrinterView`` to make printing even easier.
 
-For instance, you then don't have to specify a ``Printer``:
+For instance, you don't have to specify a ``Printer``:
 
 ```swift
 struct MyView: View, PrinterView {
 
     var body: some View {
-        Button("Print document") {
+        Button("Print image") {
             let bundle = Bundle.main
-            let url = bundle.url(forResource: "doc", withExtension: "pdf")
-            let item = PrintItem.pdf(at: url)
-            try? printItem(item)
-        }
+            let url = bundle.url(forResource: "img", withExtension: "jpg")
+            try? printItem(.imageFile(at: url))
+        }.disabled(!canPrintImages())
     }
 }
 ```
@@ -46,12 +45,14 @@ More view-specific functionality may be added in the future.
 
 ## Available item types
 
-For now, PrintingKit supports the following print item types:
+PrintingKit currently supports the following print item types:
 
+* ``PrintItem/attributedString(_:configuration:)`` - an attributed string.
 * ``PrintItem/imageData(_:)`` - JPG or PNG data.
 * ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL.
 * ``PrintItem/pdfData(_:)`` - PDF document data.
-* ``PrintItem/pdfFile(at:)`` - a PDF document at a certain URL.
+* ``PrintItem/pdfFile(at:)`` - a PDF document file at a certain URL.
+* ``PrintItem/string(_:configuration:)`` - a plain string.
 * ``PrintItem/view(_:withScale:)`` - any SwiftUI view.
 
 Note that some items currently can't be printed on some platforms.
