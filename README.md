@@ -111,6 +111,6 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 [Mastodon]: https://mastodon.social/@danielsaidi
 [Sponsors]: https://github.com/sponsors/danielsaidi
 
-[Documentation]: https://danielsaidi.github.io/PrintingKit/documentation/Printingkit/
-[Getting-Started]: https://danielsaidi.github.io/PrintingKit/documentation/Printingkit/getting-started
+[Documentation]: https://danielsaidi.github.io/PrintingKit/documentation/printingkit/
+[Getting-Started]: https://danielsaidi.github.io/PrintingKit/documentation/printingkit/getting-started
 [License]: https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE
