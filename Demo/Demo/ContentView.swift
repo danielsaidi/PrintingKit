@@ -28,10 +28,15 @@ struct ContentView: View, PrinterView {
     var body: some View {
         NavigationStack {
             List {
-                Section("Printing") {
-                    listItem("Print PDF", .pdf, printItem(for: "document", "pdf"))
-                    listItem("Print JPG", .image, printItem(for: "clouds", "jpg"))
-                    listItem("Print PNG", .image, printItem(for: "graphics", "png"))
+                Section("Files") {
+                    listItem("Print PDF file", .pdf, printItem(for: "document", "pdf"))
+                    listItem("Print JPG file", .image, printItem(for: "clouds", "jpg"))
+                    listItem("Print PNG file", .image, printItem(for: "graphics", "png"))
+                }
+                Section("Data") {
+                    listItem("Print PDF data", .pdf, printItemWithData(from: "document", "pdf"))
+                    listItem("Print JPG data", .image, printItemWithData(from: "clouds", "jpg"))
+                    listItem("Print PNG data", .image, printItemWithData(from: "graphics", "png"))
                 }
             }
             .buttonStyle(.plain)
@@ -41,16 +46,28 @@ struct ContentView: View, PrinterView {
     }
 }
 
+private extension PrintItem {
+    
+    var quickLookUrl: URL? {
+        switch self {
+        case .imageData: return nil
+        case .imageFile(let url): return url
+        case .pdfData: return nil
+        case .pdfFile(let url): return url
+        }
+    }
+}
+
 private extension ContentView {
     
     func listItem(
         _ title: String,
         _ icon: Image,
-        _ item: PrintItem
+        _ item: PrintItem?
     ) -> some View {
         HStack {
             printButton(title, icon, item)
-            if let url = item.sourceUrl {
+            if let url = item?.quickLookUrl {
                 quickLookButton(for: url)
             }
         }
@@ -59,15 +76,17 @@ private extension ContentView {
     func printButton(
         _ title: String,
         _ icon: Image,
-        _ item: PrintItem
+        _ item: PrintItem?
     ) -> some View {
         Button {
-            tryPrint(item)
+            if let item {
+                tryPrint(item)
+            }
         } label: {
             Label { Text(title) } icon: { icon }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .contentShape(Rectangle())
-        }
+        }.disabled(item == nil)
     }
     
     func quickLookButton(
@@ -91,8 +110,19 @@ private extension ContentView {
     func printItem(for file: String, _ ext: String) -> PrintItem {
         let url = printItemUrl(for: file, ext)
         switch ext {
-        case "pdf": return .pdf(at: url)
-        default: return .image(at: url)
+        case "pdf": return .pdfFile(at: url)
+        default: return .imageFile(at: url)
+        }
+    }
+    
+    func printItemWithData(from file: String, _ ext: String) -> PrintItem? {
+        guard
+            let url = printItemUrl(for: file, ext),
+            let data = try? Data(contentsOf: url)
+        else { return nil }
+        switch ext {
+        case "pdf": return .pdfData(data)
+        default: return .imageData(data)
         }
     }
     

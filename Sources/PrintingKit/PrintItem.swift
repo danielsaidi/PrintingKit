@@ -18,17 +18,17 @@ import Foundation
  */
 public enum PrintItem {
     
-    /// An JPG or PNG image file at a certain URL.
-    case imageFile(at: URL?)
-    
     /// JPG or PNG image data.
     case imageData(Data)
     
-    /// A PDF document file at a certain URL.
-    case pdfFile(at: URL?)
+    /// An JPG or PNG image file at a certain URL.
+    case imageFile(at: URL?)
     
     /// PDF document data.
     case pdfData(Data)
+    
+    /// A PDF document file at a certain URL.
+    case pdfFile(at: URL?)
 }
 
 extension Data {
