@@ -6,6 +6,15 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.2
+
+This version adds PDF utilities. 
+
+* `Pdf` is a new namespace with PDF-specific types.
+* `PdfDataSource` is a new protocol that is implemented by `NSAttributedString`.
+
+
+
 ## 0.1
 
 This is the first beta release. 
