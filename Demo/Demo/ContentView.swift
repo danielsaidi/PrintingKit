@@ -60,15 +60,18 @@ private extension PrintItem {
 
 private extension ContentView {
     
+    @ViewBuilder
     func listItem(
         _ title: String,
         _ icon: Image,
         _ item: PrintItem?
     ) -> some View {
-        HStack {
-            printButton(title, icon, item)
-            if let url = item?.quickLookUrl {
-                quickLookButton(for: url)
+        if canPrintItem(item) {
+            HStack {
+                printButton(title, icon, item)
+                if let url = item?.quickLookUrl {
+                    quickLookButton(for: url)
+                }
             }
         }
     }
@@ -81,6 +84,8 @@ private extension ContentView {
         Button {
             if let item {
                 tryPrint(item)
+            } else {
+                print("Invalid item")
             }
         } label: {
             Label { Text(title) } icon: { icon }

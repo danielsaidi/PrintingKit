@@ -17,7 +17,22 @@ public protocol PrinterView: View {}
 public extension PrinterView {
     
     /**
-     Print a printable item.
+     Whether or not the view can print a certain print item.
+     
+     - Parameters:
+       - item: The item to print.
+       - printer: The printer to use, by default `.standard`.
+     */
+    func canPrintItem(
+        _ item: PrintItem?,
+        with printer: Printer = .standard
+    ) -> Bool {
+        guard let item else { return false }
+        return printer.canPrint(item)
+    }
+    
+    /**
+     Print a certain print item.
      
      - Parameters:
        - item: The item to print.
