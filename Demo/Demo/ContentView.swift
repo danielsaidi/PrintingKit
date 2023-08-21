@@ -10,7 +10,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let url = Bundle.main.url(forResource: "tmp", withExtension: "pdf")
+    private let url = Bundle.main.url(
+        forResource: "tmp",
+        withExtension: "pdf"
+    )
     
     var body: some View {
         VStack {

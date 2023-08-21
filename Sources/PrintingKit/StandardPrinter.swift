@@ -2,11 +2,10 @@
 //  StandardPrinter.swift
 //  SwiftUIKit
 //
-//  Created by Daniel Saidi on 2022-04-04.
-//  Copyright © 2022 Daniel Saidi. All rights reserved.
+//  Created by Daniel Saidi on 2023-08-21.
+//  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
-#if os(iOS)
 import UIKit
 
 /**
@@ -17,29 +16,22 @@ import UIKit
  */
 public class StandardPrinter: Printer {
     
-    /**
-     Create a standard printer instance.
-     
-     - Parameters:
-       - jobName: The printer job name, by default "Standard Print Job".
-     */
-    public init(
-        jobName: String = "Standard Print Job"
-    ) {
-        self.jobName = jobName
-    }
-    
-    private let jobName: String
+    public init() {}
     
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .pdf: return true
+        case .pdfWithName: return item.url != nil
         }
     }
     
     public func print(_ item: PrintItem) {
         switch item {
-        case .pdf(let url): printPdf(at: url)
+        case .pdf(let url):
+            printPdf(at: url)
+        case .pdfWithName:
+            guard let url = item.url else { return }
+            printPdf(at: url)
         }
     }
 }
@@ -47,13 +39,24 @@ public class StandardPrinter: Printer {
 private extension StandardPrinter {
     
     func printPdf(at url: URL) {
+        #if os(iOS)
         let printInfo = UIPrintInfo(dictionary: nil)
         printInfo.outputType = .general
-        printInfo.jobName = jobName
+        printInfo.jobName = "Standard Printer Job"
         let controller = UIPrintInteractionController.shared
         controller.printInfo = printInfo
         controller.printingItem = url
         controller.present(animated: true)
+        #elseif os(macOS)
+        let view = PDFView()
+        let window = NSWindow()
+        view.document = PDFDocument(url: url)
+        window.setContentSize(view.frame.size)
+        window.contentView = view
+        window.center()
+        view.print(with: .shared, autoRotate: true)
+        #else
+        print("Unsupported platform")
+        #endif
     }
 }
-#endif
