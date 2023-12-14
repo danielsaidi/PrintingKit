@@ -44,6 +44,7 @@ struct MyView: View, PrinterView {
 These functions will use a standard printer if you don't provide one.
 
 
+
 ## Available item types
 
 PrintingKit currently supports the following print item types:
@@ -64,6 +65,6 @@ Note that some items currently can't be printed on some platforms.
 
 ``Printer`` provides information about which items it can print.
 
-For instance, you can use ``Printer/canPrint(_:)`` to see if the printer can print a certain item, as well as ``Printer/canPrintImages`` and  ``Printer/canPrintViews`` to see if it can print images and views.
+For instance, you can use `canPrint(_:)` to see if it can print a certain item, as well as `canPrintImages` and  `canPrintViews` to see if it can print images and views.
 
 A ``PrinterView`` lets you check this even easier, without having to provide a printer.
