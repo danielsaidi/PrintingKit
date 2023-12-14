@@ -6,6 +6,7 @@
 //  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
+#if os(iOS) || os(macOS)
 import SwiftUI
 
 /**
@@ -117,6 +118,7 @@ private extension FileManager {
         return fileUrl
     }
 }
+#endif
 
 #if canImport(AppKit)
 import AppKit

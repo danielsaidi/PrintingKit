@@ -61,16 +61,18 @@ You can also let your views implement `PrinterView` to make printing even easier
 ```swift
 struct MyView: View {
 
+    let image = Image(systemName: "checkmark")
+    
     var body: some View {
         VStack {
             Button("Print PDF") {
                 try? print(.pdf(at: anyUrl))
             }
             Button("Print view") {
-                try? print(Image(systemName: "checkmark"))
+                try? print(image)
             }
-            Button("Print view as task") {
-                try? printAsTask(Image(systemName: "checkmark"))
+            Button("Print view") {
+                printInTask(image)
             }
         }
     }

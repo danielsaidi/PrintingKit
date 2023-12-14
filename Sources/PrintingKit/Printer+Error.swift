@@ -6,6 +6,7 @@
 //  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
+#if os(iOS) || os(macOS)
 import Foundation
 
 public extension Printer {
@@ -31,3 +32,4 @@ public extension Printer {
 
 @available(*, deprecated, renamed: "Printer.PrintError")
 public typealias PrinterError = Printer.PrintError
+#endif

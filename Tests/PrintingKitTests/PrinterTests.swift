@@ -9,6 +9,7 @@
 import PrintingKit
 import XCTest
 
+#if os(iOS) || os(macOS)
 final class PrinterTests: XCTestCase {
     
     let printer = Printer()
@@ -31,3 +32,4 @@ final class PrinterTests: XCTestCase {
         #endif
     }
 }
+#endif

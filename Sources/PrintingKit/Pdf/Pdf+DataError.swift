@@ -11,9 +11,12 @@ import Foundation
 public extension Pdf {
     
     /// This error type can be thrown when creating PDF data.
-    enum PdfDataError: Error {
+    enum DataError: Error {
         
-        /// The platform is not supported
+        /// The platform is currently not supported
         case unsupportedPlatform
     }
+    
+    @available(*, deprecated, renamed: "DataError")
+    typealias PdfDataError = DataError
 }

@@ -24,7 +24,7 @@ public extension NSAttributedString {
         #elseif os(macOS)
         try macosPdfData(for: config)
         #else
-        throw PdfDataError.unsupportedPlatform
+        throw Pdf.DataError.unsupportedPlatform
         #endif
     }
 }
