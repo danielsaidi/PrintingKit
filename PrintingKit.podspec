@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'PrintingKit'
-  s.version          = '0.2.0'
+  s.version          = '0.3.0'
   s.swift_versions   = ['5.7']
   s.summary          = 'PrintingKit...'
   s.description      = 'PrintingKit is...great?'
