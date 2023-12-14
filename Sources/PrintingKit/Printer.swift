@@ -23,6 +23,7 @@ open class Printer {
     
     public init() {}
     
+    /// Whether or not the printer can print a certain item.
     open func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .attributedString: return true
@@ -44,6 +45,7 @@ open class Printer {
         }
     }
     
+    /// Print the provided item.
     open func print(_ item: PrintItem) throws {
         switch item {
         case .attributedString(let str, let conf): try print(str, config: conf)
@@ -110,7 +112,7 @@ private extension Printer {
     
     #if os(iOS)
     func print(fileAt url: URL?) throws {
-        guard let url else { throw PrinterError.invalidUrl }
+        guard let url else { throw Printer.PrintError.invalidUrl }
         let info = UIPrintInfo(dictionary: nil)
         info.outputType = .general
         info.jobName = "Standard Printer Job"

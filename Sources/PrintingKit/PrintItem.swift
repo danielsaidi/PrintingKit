@@ -55,7 +55,7 @@ public extension PrintItem {
     ) throws -> PrintItem {
         let renderer = ImageRenderer(content: view)
         renderer.scale = scale
-        guard let data = renderer.imageData else { throw PrinterError.invalidViewData }
+        guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
         return imageData(data)
     }
 }
@@ -113,7 +113,7 @@ private extension FileManager {
         guard let fileUrl = cachesDirectoryUrl?
             .appendingPathComponent(id)
             .appendingPathExtension(fileExtension)
-        else { throw PrinterError.cachesDirectoryDoesNotExist }
+        else { throw Printer.PrintError.cachesDirectoryDoesNotExist }
         try? removeItem(at: fileUrl)
         createFile(atPath: fileUrl.path, contents: data)
         return fileUrl
