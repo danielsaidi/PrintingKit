@@ -26,6 +26,7 @@ Plus, PrintingKit now builds on all Apple platforms, to let you import it withou
 * `PrinterView` is deprecated. Use `Printer` directly.
 
 
+
 ## 0.2
 
 This version adds PDF utilities and more print item types. 
