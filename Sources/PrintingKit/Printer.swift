@@ -149,9 +149,8 @@ private extension Printer {
         #if os(iOS)
         let url = try data.createExportFile(withExtension: "img")
         try print(fileAt: url)
-        // TODO: Print url differently with macOS
         #else
-        guard let image = NSImage(data: data) else { return }   // TODO: THROW
+        guard let image = NSImage(data: data) else { return }
         let imageView = NSImageView(image: image)
         imageView.frame = NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         imageView.imageScaling = .scaleProportionallyDown
