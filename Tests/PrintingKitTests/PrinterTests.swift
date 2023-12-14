@@ -7,6 +7,7 @@
 //
 
 import PrintingKit
+import SwiftUI
 import XCTest
 
 #if os(iOS) || os(macOS)
@@ -14,22 +15,11 @@ final class PrinterTests: XCTestCase {
     
     let printer = Printer()
     
-    func testCanPrintImagesOnlyOniOS() throws {
-        let canPrint = printer.canPrintImages
-        #if os(iOS)
+    func testCanPrintViewsIdThusImages() async throws {
+        let view = Text("Hello")
+        let item = try await PrintItem.view(view)
+        let canPrint = printer.canPrint(item)
         XCTAssertTrue(canPrint)
-        #else
-        XCTAssertFalse(canPrint)
-        #endif
-    }
-    
-    func testCanPrintViewsOnlyOniOS() throws {
-        let canPrint = printer.canPrintViews
-        #if os(iOS)
-        XCTAssertTrue(canPrint)
-        #else
-        XCTAssertFalse(canPrint)
-        #endif
     }
 }
 #endif

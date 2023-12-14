@@ -7,7 +7,9 @@ PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
 ![Library logotype](Logo.png)
 
-With PrintingKit, just create a `Printer` and print any of the supported `PrintItem` types.
+With PrintingKit, you just have to create a ``Printer`` instance or use ``Printer/shared``, then use it to print any of the supported ``PrintItem`` types with a single line of code.
+
+PrintingKit works on both iOS and macOS.
 
 
 
@@ -25,7 +27,7 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 ## Getting started
 
-The <doc:Getting-Started> article helps you get started with ApiKit.
+The <doc:Getting-Started> article helps you get started with PrintingKit.
 
 
 
