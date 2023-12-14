@@ -1,6 +1,6 @@
 import Foundation
 
-extension Printer {
+public extension Printer {
     
     /// Whether or not the printer can print images.
     var canPrintImages: Bool {
@@ -9,5 +9,10 @@ extension Printer {
         #else
         return false
         #endif
+    }
+    
+    /// Whether or not the printer can print views.
+    var canPrintViews: Bool {
+        canPrintImages
     }
 }

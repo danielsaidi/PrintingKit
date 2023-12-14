@@ -1,5 +1,5 @@
 //
-//  StandardPrinter.swift
+//  Printer_macOS.swift
 //  SwiftUIKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
@@ -15,7 +15,7 @@ import PDFKit
  
  This class uses a `AppKit` and `PDFKit` to perform printing.
  */
-public class StandardPrinter: Printer {
+public class Printer {
     
     public init() {}
     
@@ -42,7 +42,7 @@ public class StandardPrinter: Printer {
     }
 }
 
-private extension StandardPrinter {
+private extension Printer {
     
     func print(
         _ string: String,

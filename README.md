@@ -15,15 +15,15 @@
 
 PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
-PrintingKit currently supports the following printable types:
+PrintingKit currently supports the following `PrintItem` types:
 
 * `.attributedString(_:configuration:)` - an attributed string.
-* `.imageData(_:)` - JPG or PNG data.
-* `.imageFile(at:)` - a JPG or PNG file at a certain URL.
+* `.imageData(_:)` - JPG or PNG data (iOS only).
+* `.imageFile(at:)` - a JPG or PNG file at a certain URL (iOS only).
 * `.pdfData(_:)` - PDF document data.
 * `.pdfFile(at:)` - a PDF document file at a certain URL.
 * `.string(_:configuration:)` - a plain string.
-* `.view(_:withScale:)` - any SwiftUI view. 
+* `.view(_:withScale:)` - any SwiftUI view (iOS only).
 
 PrintingKit also contains PDF-specific utilities.
 
@@ -50,16 +50,32 @@ struct MyView: View {
 
     var body: some View {
         Button("Print document") {
-            let bundle = Bundle.main
-            let url = bundle.url(forResource: "doc", withExtension: "pdf")
-            let item = PrintItem.pdf(at: url)
-            try? StandardPrinter().print(item)
+            try? Printer().print(.pdf(at: ...))
         }
     }
 }
 ```
 
 You can also let your views implement `PrinterView` to make printing even easier.
+
+```swift
+struct MyView: View {
+
+    var body: some View {
+        VStack {
+            Button("Print PDF") {
+                try? print(.pdf(at: anyUrl))
+            }
+            Button("Print view") {
+                try? print(Image(systemName: "checkmark"))
+            }
+            Button("Print view as task") {
+                try? printAsTask(Image(systemName: "checkmark"))
+            }
+        }
+    }
+}
+```
 
 For more information, see the [getting started][Getting-Started].
 

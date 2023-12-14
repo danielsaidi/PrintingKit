@@ -23,10 +23,10 @@ public extension PrinterView {
      Whether or not the view can print images.
      
      - Parameters:
-       - printer: The printer to use, by default `.standard`.
+       - printer: The printer to use.
      */
     func canPrintImages(
-        with printer: Printer = .standard
+        with printer: Printer = .init()
     ) -> Bool {
         printer.canPrintImages
     }
@@ -36,11 +36,11 @@ public extension PrinterView {
      
      - Parameters:
        - item: The item to print.
-       - printer: The printer to use, by default `.standard`.
+       - printer: The printer to use.
      */
     func canPrintItem(
         _ item: PrintItem?,
-        with printer: Printer = .standard
+        with printer: Printer = .init()
     ) -> Bool {
         guard let item else { return false }
         return printer.canPrint(item)
@@ -50,10 +50,10 @@ public extension PrinterView {
      Whether or not the view can print views.
      
      - Parameters:
-       - printer: The printer to use, by default `.standard`.
+       - printer: The printer to use.
      */
     func canPrintViews(
-        with printer: Printer = .standard
+        with printer: Printer = .init()
     ) -> Bool {
         printer.canPrintViews
     }
@@ -63,11 +63,11 @@ public extension PrinterView {
      
      - Parameters:
        - item: The item to print.
-       - printer: The printer to use, by default `.standard`.
+       - printer: The printer to use.
      */
     func printItem(
         _ item: PrintItem,
-        with printer: Printer = .standard
+        with printer: Printer = .init()
     ) throws {
         try printer.print(item)
     }
@@ -84,7 +84,7 @@ public extension PrinterView {
     func printView<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2,
-        printer: Printer = .standard
+        printer: Printer = .init()
     ) throws {
         let item = try PrintItem.view(view, withScale: scale)
         try printer.print(item)
@@ -101,7 +101,7 @@ public extension PrinterView {
     func printViewAsTask<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2,
-        with printer: Printer = .standard
+        with printer: Printer = .init()
     ) {
         Task {
             try? await printView(

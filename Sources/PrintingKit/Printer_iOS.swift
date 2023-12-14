@@ -1,5 +1,5 @@
 //
-//  StandardPrinter.swift
+//  Printer_iOS.swift
 //  SwiftUIKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
@@ -15,7 +15,7 @@ import UIKit
  This class uses a `UIPrintInteractionController` to perform
  the print operation.
  */
-public class StandardPrinter: Printer {
+public class Printer {
     
     public init() {}
     
@@ -40,7 +40,7 @@ public class StandardPrinter: Printer {
     }
 }
 
-private extension StandardPrinter {
+private extension Printer {
     
     func print(
         _ data: Data,
