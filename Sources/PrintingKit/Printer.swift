@@ -17,12 +17,18 @@ import SwiftUI
 
 #if os(iOS) || os(macOS)
 /**
- This class implements the ``Printer`` protocol for macOS.
+ This class can be used to print ``PrintItem`` with platform
+ specific configurations.
  
- This class uses a `AppKit` and `PDFKit` to perform printing.
+ You can use the static ``Printer/shared`` instance when you
+ don't want to create separate instances.
+ 
+ You can subclass this class then override any functionality
+ that you want to customize.
  */
 open class Printer {
     
+    /// Create a printer instance.
     public init() {}
     
     @available(*, deprecated, message: "Use the non-optional version.")
@@ -74,6 +80,11 @@ open class Printer {
             try? print(item)
         }
     }
+    
+    /// A shared printer instance.
+    ///
+    /// You can replace this to change the global default.
+    static var shared = Printer()
 }
 
 public extension Printer {

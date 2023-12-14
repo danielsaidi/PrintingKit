@@ -15,17 +15,7 @@
 
 PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
-PrintingKit currently supports the following `PrintItem` types:
-
-* `.attributedString(_:configuration:)` - an attributed string.
-* `.imageData(_:)` - JPG or PNG data (iOS only).
-* `.imageFile(at:)` - a JPG or PNG file at a certain URL (iOS only).
-* `.pdfData(_:)` - PDF document data.
-* `.pdfFile(at:)` - a PDF document file at a certain URL.
-* `.string(_:configuration:)` - a plain string.
-* `.view(_:withScale:)` - any SwiftUI view (iOS only).
-
-Note that some items currently can't be printed on some platforms.
+With PrintingKit, just create a `Printer` and print any of the supported `PrintItem` types.
 
 
 
@@ -43,7 +33,17 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 ## Getting started
 
-To print any of the supported items, just create a `Printer` instance and do this:
+PrintingKit currently supports the following `PrintItem` types:
+
+* `.attributedString(_:configuration:)` - an attributed string.
+* `.imageData(_:)` - JPG or PNG data.
+* `.imageFile(at:)` - a JPG or PNG file at a certain URL.
+* `.pdfData(_:)` - PDF document data.
+* `.pdfFile(at:)` - a PDF document file at a certain URL.
+* `.string(_:configuration:)` - a plain string.
+* `.view(_:withScale:)` - any SwiftUI view.
+
+To print any of the supported items, just use a `Printer` instance:
 
 ```swift
 struct MyView: View {
@@ -64,7 +64,7 @@ struct MyView: View {
         }
     }
 }
-```
+``` 
 
 For more information, see the [getting started][Getting-Started].
 

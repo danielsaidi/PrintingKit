@@ -7,20 +7,7 @@ PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
 ![Library logotype](Logo.png)
 
-
-## Supported Item Types
-
-PrintingKit currently supports the following printable types:
-
-* ``PrintItem/attributedString(_:configuration:)`` - an attributed string.
-* ``PrintItem/imageData(_:)`` - JPG or PNG data (iOS only).
-* ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL (iOS only).
-* ``PrintItem/pdfData(_:)`` - PDF document data.
-* ``PrintItem/pdfFile(at:)`` - a PDF document file at a certain URL.
-* ``PrintItem/string(_:configuration:)`` - a plain string.
-* ``PrintItem/view(_:withScale:)`` - any SwiftUI view (iOS only).
-
-Note that some items currently can't be printed on some platforms.
+With PrintingKit, just create a `Printer` and print any of the supported `PrintItem` types.
 
 
 
