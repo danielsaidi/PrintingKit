@@ -22,6 +22,6 @@ public enum PrinterError: Error {
     /// The print item is configured with an invalid view.
     case invalidViewData
     
-    /// The operation is not supported by the platform.
+    @available(*, deprecated, message: "This is no longer used.")
     case unsupportedOperation
 }
