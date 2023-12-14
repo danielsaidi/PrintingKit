@@ -36,6 +36,21 @@ public enum PrintItem {
     case string(String, configuration: Pdf.PageConfiguration = .standard)
 }
 
+public extension PrintItem {
+    
+    /// Get a quick look url to the item, if any.
+    var quickLookUrl: URL? {
+        switch self {
+        case .attributedString: return nil
+        case .imageData: return nil
+        case .imageFile(let url): return url
+        case .pdfData: return nil
+        case .pdfFile(let url): return url
+        case .string: return nil
+        }
+    }
+}
+
 @available(iOS 16.0, macOS 13.0, *)
 public extension PrintItem {
     

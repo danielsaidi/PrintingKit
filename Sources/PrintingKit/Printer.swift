@@ -26,7 +26,8 @@ open class Printer {
     public init() {}
     
     /// Whether or not the printer can print a certain item.
-    open func canPrint(_ item: PrintItem) -> Bool {
+    open func canPrint(_ item: PrintItem?) -> Bool {
+        guard let item else { return false }
         switch item {
         case .attributedString: return true
         case .imageData(let data):
@@ -65,8 +66,11 @@ open class Printer {
     }
     
     /// Print the provided view within a non-thowing task.
+    ///
+    /// This is useful, since ``PrintItem/view(_:withScale:)``
+    /// is async, which is a bit complicated to use in views.
     @available(iOS 16.0, macOS 13.0, *)
-    func printViewInTask<Content: View> (
+    open func printViewInTask<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2
     ) {
@@ -131,23 +135,25 @@ private extension Printer {
     
     func print(fileAt url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
-        #if os(iOS)
-        let info = UIPrintInfo(dictionary: nil)
-        info.outputType = .general
-        info.jobName = "Standard Printer Job"
-        let controller = UIPrintInteractionController.shared
-        controller.printInfo = info
-        controller.printingItem = url
-        controller.present(animated: true)
-        #elseif os(macOS)
-        let view = PDFView()
-        let window = NSWindow()
-        view.document = PDFDocument(url: url)
-        window.setContentSize(view.frame.size)
-        window.contentView = view
-        window.center()
-        view.print(with: .shared, autoRotate: true)
-        #endif
+        DispatchQueue.main.async {
+            #if os(iOS)
+            let info = UIPrintInfo(dictionary: nil)
+            info.outputType = .general
+            info.jobName = "Standard Printer Job"
+            let controller = UIPrintInteractionController.shared
+            controller.printInfo = info
+            controller.printingItem = url
+            controller.present(animated: true)
+            #elseif os(macOS)
+            let view = PDFView()
+            let window = NSWindow()
+            view.document = PDFDocument(url: url)
+            window.setContentSize(view.frame.size)
+            window.contentView = view
+            window.center()
+            view.print(with: .shared, autoRotate: true)
+            #endif
+        }
     }
 }
 #endif
