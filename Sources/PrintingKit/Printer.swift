@@ -63,6 +63,18 @@ open class Printer {
         case .string(let str, let conf): try print(str, config: conf)
         }
     }
+    
+    /// Print the provided view within a non-thowing task.
+    @available(iOS 16.0, macOS 13.0, *)
+    func printViewInTask<Content: View> (
+        _ view: Content,
+        withScale scale: CGFloat = 2
+    ) {
+        Task {
+            let item = try await PrintItem.view(view, withScale: scale)
+            try? print(item)
+        }
+    }
 }
 
 public extension Printer {

@@ -5,43 +5,28 @@ This article explains how to get started with PrintingKit.
 
 ## Overview
 
-To print a PDF document in the main bundle in SwiftUI, just do this:
+To print any of the supported items, just create a `Printer` instance and do this:
 
 ```swift
 struct MyView: View {
 
-    var body: some View {
-        Button("Print document") {
-            try? Printer().print(.pdf(at: ...))
-        }
-    }
-}
-```
+    let printer = Printer() 
 
-You can also let your views implement ``PrinterView` to make printing even easier.
-
-```swift
-struct MyView: View, PrinterView {
-
-    let image = Image(systemName: "checkmark")
-    
     var body: some View {
         VStack {
             Button("Print PDF") {
-                try? print(.pdf(at: anyUrl))
+                try? printer.print(.pdf(at: anyUrl))
             }
             Button("Print view") {
-                try? print(image)
+                try? printer.print(image)
             }
-            Button("Print view") {
-                printInTask(image)
+            Button("Print view without try") {
+                printer.printInTask(image)
             }
         }
     }
 }
 ```
-
-These functions will use a standard printer if you don't provide one.
 
 
 

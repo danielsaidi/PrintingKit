@@ -9,16 +9,10 @@
 #if os(iOS) || os(macOS)
 import SwiftUI
 
-/**
- This protocol can be implemented by any view that should be
- able to print ``PrintItem`` types.
- 
- Implementing the protocol gives a view access to convenient
- print functions, where a printer only has to be provided if
- the view wants to use a custom printer.
- */
+@available(*, deprecated, message: "Use Printer directly.")
 public protocol PrinterView: View {}
 
+@available(*, deprecated, message: "Use Printer directly.")
 public extension PrinterView {
     
     /// Whether or not the view can print images.
@@ -45,7 +39,7 @@ public extension PrinterView {
     }
     
     /// Print the provided item.
-    func print(
+    func printItem(
         _ item: PrintItem,
         with printer: Printer = .init()
     ) throws {
@@ -55,7 +49,7 @@ public extension PrinterView {
     /// Print the provided view.
     @MainActor
     @available(iOS 16.0, macOS 13.0, *)
-    func print<Content: View> (
+    func printView<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2,
         printer: Printer = .init()
@@ -69,18 +63,12 @@ public extension PrinterView {
     /// This function can be used when you're not interested
     /// in any errors being thrown.
     @available(iOS 16.0, macOS 13.0, *)
-    func printInTask<Content: View> (
+    func printViewInTask<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2,
         printer: Printer = .init()
     ) {
-        Task {
-            try? await print(
-                view,
-                withScale: scale,
-                printer: printer
-            )
-        }
+        printer.printViewInTask(view, withScale: scale)
     }
     
     
@@ -92,37 +80,18 @@ public extension PrinterView {
         canPrint(item, with: printer)
     }
     
-    @available(*, deprecated, renamed: "print(_:with:)")
-    func printItem(
-        _ item: PrintItem,
-        with printer: Printer = .init()
-    ) throws {
-        try print(item, with: printer)
-    }
-    
-    @MainActor
-    @available(iOS 16.0, macOS 13.0, *)
-    @available(*, deprecated, renamed: "print(_:withScale:printer:)")
-    func printView<Content: View> (
-        _ view: Content,
-        withScale scale: CGFloat = 2,
-        printer: Printer = .init()
-    ) throws {
-        try print(view, withScale: scale, printer: printer)
-    }
-    
     /// Print the provided view as a non-thowing task.
     ///
     /// This function can be used when you're not interested
     /// in any errors being thrown.
     @available(iOS 16.0, macOS 13.0, *)
-    @available(*, deprecated, renamed: "printInTask(_:withScale:printer:)")
+    @available(*, deprecated, renamed: "printViewInTask(_:withScale:printer:)")
     func printViewAsTask<Content: View> (
         _ view: Content,
         withScale scale: CGFloat = 2,
         with printer: Printer = .init()
     ) {
-        printInTask(view, withScale: scale, printer: printer)
+        printViewInTask(view, withScale: scale, printer: printer)
     }
 }
 #endif

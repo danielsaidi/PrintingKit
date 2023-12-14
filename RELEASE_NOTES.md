@@ -8,27 +8,22 @@ Until then, deprecated features may be removed in the next minor version.
 
 ## 0.3
 
-PrintingKit now builds on all Apple platforms, to let you import it without complicated, conditional adjustments.
+This version bumps to Swift 5.9 and replaces the `Printer` protocol with a class to make the library less complex.
 
-This version bumps to Swift 5.9 and replaces `Printer` with `StandardPrinter` to avoid having a protocol. 
+Due to this, the `PrinterView` is no longer needed, and has been deprecated.
 
-### ✨ New Features
-
-* `Printer` is now open to inheritance and customizations.
+Plus, PrintingKit now builds on all Apple platforms, to let you import it without complicated, conditional adjustments.
 
 ### 💡 Behavior Changes
 
-* `Printer` is now a single class for all supported platforms.
+* `Printer` is now a single, open class on all supported platforms.
 * `PrintItem.string` is now a proper enum case.
 
 ### 🗑️ Deprecations
 
 * `Pdf.PdfDataError` has been renamed to `Pdf.DataError`.
 * `PrinterError` has been renamed to `Printer.PrintError`.
-* `PrinterView.canPrintItem(...)` has been renamed to `PrintView.canPrint(...)`.
-* `PrinterView.printItem(...)` has been renamed to `PrintView.print(...)`.
-* `PrinterView.printView(...)` has been renamed to `PrintView.print(...)`.
-* `PrinterView.printViewAsTask(...)` has been renamed to `PrintView.printInTask(...)`.
+* `PrinterView` is deprecated. Use `Printer` directly.
 
 
 ## 0.2

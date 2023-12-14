@@ -63,7 +63,6 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 ### Essentials
 
 - ``Printer``
-- ``PrinterView``
 - ``PrintItem``
 
 ### Pdf

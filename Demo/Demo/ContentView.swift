@@ -98,7 +98,7 @@ private extension ContentView {
             Section("View") {
                 viewContent
                 printButton("Print this view", .view) {
-                    printViewAsTask(viewContent)
+                    printViewInTask(viewContent)
                 }
             }
         }
@@ -114,6 +114,7 @@ private extension PrintItem {
         case .imageFile(let url): return url
         case .pdfData: return nil
         case .pdfFile(let url): return url
+        case .string: return nil
         }
     }
 }
@@ -126,7 +127,7 @@ private extension ContentView {
         _ icon: Image,
         _ item: PrintItem?
     ) -> some View {
-        if canPrintItem(item) {
+        if canPrint(item) {
             HStack {
                 printButton(title, icon) {
                     if let item {
