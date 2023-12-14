@@ -58,7 +58,7 @@ open class Printer {
         switch item {
         case .attributedString(let str, let conf): try print(str, config: conf)
         case .imageData(let data): try print(imageData: data)
-        case .imageFile(let url): try print(fileAt: url)
+        case .imageFile(let url): try print(imageFileAt: url)
         case .pdfData(let data): try print(pdfData: data)
         case .pdfFile(let url): try print(fileAt: url)
         case .string(let str, let conf): try print(str, config: conf)
@@ -124,15 +124,6 @@ private extension Printer {
         try print(pdfData: data)
     }
     
-    func print(imageData data: Data) throws {
-        try print(data, withFileExtension: "img")
-    }
-    
-    func print(pdfData data: Data) throws {
-        let url = try data.createExportFile(withExtension: "pdf")
-        try print(fileAt: url)
-    }
-    
     func print(fileAt url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
         DispatchQueue.main.async {
@@ -154,6 +145,44 @@ private extension Printer {
             view.print(with: .shared, autoRotate: true)
             #endif
         }
+    }
+    
+    func print(imageData data: Data) throws {
+        #if os(iOS)
+        let url = try data.createExportFile(withExtension: "img")
+        try print(fileAt: url)
+        // TODO: Print url differently with macOS
+        #else
+        guard let image = NSImage(data: data) else { return }   // TODO: THROW
+        let imageView = NSImageView(image: image)
+        imageView.frame = NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        imageView.imageScaling = .scaleProportionallyDown
+        let printOperation = NSPrintOperation(view: imageView)
+        let printInfo = NSPrintInfo.shared
+        printInfo.horizontalPagination = .fit
+        printInfo.verticalPagination = .fit
+        printOperation.printInfo = printInfo
+        printOperation.showsPrintPanel = true
+        printOperation.showsProgressPanel = true
+        printOperation.run()
+        #endif
+    }
+    
+    func print(imageFileAt url: URL?) throws {
+        guard let url else { throw Printer.PrintError.invalidUrl }
+        #if os(iOS)
+        try print(fileAt: url)
+        #else
+        Task {
+            let result = try await URLSession.shared.data(from: url)
+            try print(imageData: result.0)
+        }
+        #endif
+    }
+    
+    func print(pdfData data: Data) throws {
+        let url = try data.createExportFile(withExtension: "pdf")
+        try print(fileAt: url)
     }
 }
 #endif

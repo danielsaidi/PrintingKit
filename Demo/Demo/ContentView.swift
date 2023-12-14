@@ -50,9 +50,13 @@ struct ContentView: View {
                 }
                 Section("View") {
                     printButton("Print the selected view (iOS only)", .view) {
-                        printer.printViewInTask(printableView, withScale: 200)
+                        do {
+                            try printer.print(.view(printableView, withScale: 200))
+                        } catch {
+                            print(error)
+                        }
                     }
-                    .disabled(!printer.canPrint(printableView))
+                    
                 }
                 Section {
                     Picker("Select which view to print:", selection: $isGreenCheckmarkSelected) {

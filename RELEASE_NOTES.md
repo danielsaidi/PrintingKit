@@ -6,6 +6,17 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.4
+
+This version removes deprecated code and makes view and image printing work on macOS.
+
+### 🗑️ Deprecations
+
+* `Printer.canPrintImages` has been deprecated.
+* `Printer.canPrintViews` has been deprecated.
+
+
+
 ## 0.3
 
 This version bumps to Swift 5.9 and replaces the `Printer` protocol with a class to make the library less complex.
