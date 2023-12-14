@@ -6,7 +6,9 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
-## 0.2
+## 0.3
+
+This version bumps to Swift 5.9 and replaces `Printer` with `StandardPrinter` to avoid having a protocol. 
 
 ### 💡 Behavior Changes
 

@@ -19,8 +19,6 @@ public class StandardPrinter: Printer {
     
     public init() {}
     
-    public var canPrintImages: Bool { return false }
-    
     public func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .attributedString: return true

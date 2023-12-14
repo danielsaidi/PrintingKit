@@ -15,11 +15,6 @@ import Foundation
 public protocol Printer {
     
     /**
-     Whether or not the printer can print images.
-     */
-    var canPrintImages: Bool { get }
-    
-    /**
      Whether or not the printer can print the provided item.
      */
     func canPrint(_ item: PrintItem) -> Bool
