@@ -24,12 +24,6 @@ public extension Printer {
         
         /// The print item is configured with an invalid view.
         case invalidViewData
-        
-        @available(*, deprecated, message: "This is no longer used.")
-        case unsupportedOperation
     }
 }
-
-@available(*, deprecated, renamed: "Printer.PrintError")
-public typealias PrinterError = Printer.PrintError
 #endif

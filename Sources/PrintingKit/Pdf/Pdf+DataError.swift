@@ -16,7 +16,4 @@ public extension Pdf {
         /// The platform is currently not supported
         case unsupportedPlatform
     }
-    
-    @available(*, deprecated, renamed: "DataError")
-    typealias PdfDataError = DataError
 }

@@ -30,25 +30,15 @@ open class Printer {
         guard let item else { return false }
         switch item {
         case .attributedString: return true
-        case .imageData(let data):
-            #if os(iOS)
-            return data.canCreateExportFile
-            #elseif os(macOS)
-            return canPrintImages
-            #endif
-        case .imageFile:
-            #if os(iOS)
-            return true
-            #elseif os(macOS)
-            return canPrintImages
-            #endif
+        case .imageData(let data): return data.canCreateExportFile
+        case .imageFile: return true
         case .pdfData(let data): return data.canCreateExportFile
         case .pdfFile: return true
         case .string: return true
         }
     }
     
-    /// Whether or not the printer can print a certain view.
+    @available(*, deprecated, message: "This is no longer needed.")
     open func canPrint<ViewType: View>(_ view: ViewType) -> Bool {
         canPrintViews
     }
@@ -83,7 +73,7 @@ open class Printer {
 
 public extension Printer {
     
-    /// Whether or not the printer can print images.
+    @available(*, deprecated, message: "This is no longer needed.")
     var canPrintImages: Bool {
         #if os(iOS)
         return true
@@ -92,7 +82,7 @@ public extension Printer {
         #endif
     }
     
-    /// Whether or not the printer can print views.
+    @available(*, deprecated, message: "This is no longer needed.")
     var canPrintViews: Bool {
         canPrintImages
     }
