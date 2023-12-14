@@ -110,9 +110,9 @@ private extension Printer {
         try print(fileAt: url)
     }
     
-    #if os(iOS)
     func print(fileAt url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
+        #if os(iOS)
         let info = UIPrintInfo(dictionary: nil)
         info.outputType = .general
         info.jobName = "Standard Printer Job"
@@ -120,10 +120,7 @@ private extension Printer {
         controller.printInfo = info
         controller.printingItem = url
         controller.present(animated: true)
-    }
-    #elseif os(macOS)
-    func print(fileAt url: URL?) throws {
-        guard let url else { throw PrinterError.invalidUrl }
+        #elseif os(macOS)
         let view = PDFView()
         let window = NSWindow()
         view.document = PDFDocument(url: url)
@@ -131,7 +128,7 @@ private extension Printer {
         window.contentView = view
         window.center()
         view.print(with: .shared, autoRotate: true)
+        #endif
     }
-    #endif
 }
 #endif
