@@ -65,7 +65,7 @@
 		A99237C42A938D9400EBFAD6 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				A99237D62A938F0700EBFAD6 /* Docs */,
+				A99237D62A938F0700EBFAD6 /* Files */,
 				A99237C52A938D9400EBFAD6 /* DemoApp.swift */,
 				A99237C72A938D9400EBFAD6 /* ContentView.swift */,
 				A96E0A8D2B2AFE82005DC054 /* Image+Demo.swift */,
@@ -92,14 +92,14 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
-		A99237D62A938F0700EBFAD6 /* Docs */ = {
+		A99237D62A938F0700EBFAD6 /* Files */ = {
 			isa = PBXGroup;
 			children = (
 				A9619D572A939FFE00E7ED0F /* document.pdf */,
 				A9619D532A939CFB00E7ED0F /* graphics.png */,
 				A9619D4D2A939BD000E7ED0F /* clouds.jpg */,
 			);
-			path = Docs;
+			path = Files;
 			sourceTree = "<group>";
 		};
 		A99237D92A938F5E00EBFAD6 /* Frameworks */ = {

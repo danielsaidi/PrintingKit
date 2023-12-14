@@ -25,16 +25,21 @@ open class Printer {
     
     public init() {}
     
-    /// Whether or not the printer can print a certain item.
+    @available(*, deprecated, message: "Use the non-optional version.")
     open func canPrint(_ item: PrintItem?) -> Bool {
         guard let item else { return false }
+        return canPrint(item)
+    }
+    
+    /// Whether or not the printer can print a certain item.
+    open func canPrint(_ item: PrintItem) -> Bool {
         switch item {
-        case .attributedString: return true
-        case .imageData(let data): return data.canCreateExportFile
-        case .imageFile: return true
-        case .pdfData(let data): return data.canCreateExportFile
-        case .pdfFile: return true
-        case .string: return true
+        case .attributedString: true
+        case .imageData(let data): data.canCreateExportFile
+        case .imageFile: true
+        case .pdfData(let data): data.canCreateExportFile
+        case .pdfFile: true
+        case .string: true
         }
     }
     
@@ -74,18 +79,10 @@ open class Printer {
 public extension Printer {
     
     @available(*, deprecated, message: "This is no longer needed.")
-    var canPrintImages: Bool {
-        #if os(iOS)
-        return true
-        #else
-        return false
-        #endif
-    }
+    var canPrintImages: Bool { true }
     
     @available(*, deprecated, message: "This is no longer needed.")
-    var canPrintViews: Bool {
-        canPrintImages
-    }
+    var canPrintViews: Bool { canPrintImages }
 }
 
 private extension Printer {

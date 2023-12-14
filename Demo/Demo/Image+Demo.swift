@@ -15,6 +15,7 @@ extension Image {
     static let image = symbol("photo")
     static let pdf = symbol("doc.richtext")
     static let text = symbol("textformat.abc")
+    static let textInput = symbol("character.cursor.ibeam")
     static let view = symbol("apps.iphone")
     static let xmark = symbol("xmark")
     
