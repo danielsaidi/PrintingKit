@@ -10,6 +10,10 @@ Until then, deprecated features may be removed in the next minor version.
 
 This version makes view and image printing work on macOS.
 
+### ✨ New Features
+
+* Image and view printing now works on macOS.
+
 ### 🗑️ Deprecations
 
 * All previously deprecated code has been removed.
