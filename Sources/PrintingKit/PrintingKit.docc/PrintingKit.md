@@ -1,15 +1,23 @@
 # ``PrintingKit``
 
-PrintingKit helps you integrate with external REST APIs.
+PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
 
 ## Overview
 
 ![Library logotype](Logo.png)
 
-PrintingKit helps you print PDF documents and other items in Swift and SwiftUI.
+PrintingKit currently supports the following `PrintItem` types:
 
-PrintingKit supports `iOS 13` and `macOS 11`.
+* `.attributedString(_:configuration:)` - an attributed string.
+* `.imageData(_:)` - JPG or PNG data (iOS only).
+* `.imageFile(at:)` - a JPG or PNG file at a certain URL (iOS only).
+* `.pdfData(_:)` - PDF document data.
+* `.pdfFile(at:)` - a PDF document file at a certain URL.
+* `.string(_:configuration:)` - a plain string.
+* `.view(_:withScale:)` - any SwiftUI view (iOS only).
+
+PrintingKit also contains PDF-specific utilities.
 
 
 
@@ -27,13 +35,13 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 ## Getting started
 
-The <doc:Getting-Started> article has a guide to help you get started with RichTextKit.
+The <doc:Getting-Started> article helps you get started with ApiKit.
 
 
 
 ## Repository
 
-For more information, source code, an if you want to report issues, sponsor the project etc., visit the [project repository](https://github.com/danielsaidi/PrintingKit).
+For more information, source code, etc., visit the [project repository][Repository].
 
 
 
@@ -59,3 +67,8 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 
 - ``Pdf``
 - ``PdfDataSource``
+
+
+
+[License]: https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE
+[Repository]: https://github.com/danielsaidi/PrintingKit

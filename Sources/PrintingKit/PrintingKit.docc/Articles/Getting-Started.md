@@ -5,42 +5,43 @@ This article explains how to get started with PrintingKit.
 
 ## Overview
 
-PrintingKit helps you print PDF documents and other items in Swift and SwiftUI.
-
-For instance, to print a PDF in SwiftUI, just do this:
+To print a PDF document in the main bundle in SwiftUI, just do this:
 
 ```swift
 struct MyView: View {
 
     var body: some View {
         Button("Print document") {
-            let bundle = Bundle.main
-            let url = bundle.url(forResource: "doc", withExtension: "pdf")
-            let item = PrintItem.pdfFile(at: url)
-            try? StandardPrinter().print(item)
+            try? Printer().print(.pdf(at: ...))
         }
     }
 }
 ```
 
-You can also let your views implement ``PrinterView`` to make printing even easier.
-
-For instance, you don't have to specify a ``Printer``:
+You can also let your views implement ``PrinterView` to make printing even easier.
 
 ```swift
 struct MyView: View, PrinterView {
 
+    let image = Image(systemName: "checkmark")
+    
     var body: some View {
-        Button("Print image") {
-            let bundle = Bundle.main
-            let url = bundle.url(forResource: "img", withExtension: "jpg")
-            try? printItem(.imageFile(at: url))
-        }.disabled(!canPrintImages())
+        VStack {
+            Button("Print PDF") {
+                try? print(.pdf(at: anyUrl))
+            }
+            Button("Print view") {
+                try? print(image)
+            }
+            Button("Print view") {
+                printInTask(image)
+            }
+        }
     }
 }
 ```
 
-More view-specific functionality may be added in the future.
+These functions will use a standard printer if you don't provide one.
 
 
 ## Available item types
@@ -48,19 +49,20 @@ More view-specific functionality may be added in the future.
 PrintingKit currently supports the following print item types:
 
 * ``PrintItem/attributedString(_:configuration:)`` - an attributed string.
-* ``PrintItem/imageData(_:)`` - JPG or PNG data.
-* ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL.
+* ``PrintItem/imageData(_:)`` - JPG or PNG data (iOS only).
+* ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL (iOS only).
 * ``PrintItem/pdfData(_:)`` - PDF document data.
 * ``PrintItem/pdfFile(at:)`` - a PDF document file at a certain URL.
 * ``PrintItem/string(_:configuration:)`` - a plain string.
-* ``PrintItem/view(_:withScale:)`` - any SwiftUI view.
+* ``PrintItem/view(_:withScale:)`` - any SwiftUI view (iOS only).
 
 Note that some items currently can't be printed on some platforms.
 
 
-## Checking printing capabilities
 
-A ``Printer`` provides information about which items it can print.
+## How to check printer capabilities
+
+``Printer`` provides information about which items it can print.
 
 For instance, you can use ``Printer/canPrint(_:)`` to see if the printer can print a certain item, as well as ``Printer/canPrintImages`` and  ``Printer/canPrintViews`` to see if it can print images and views.
 

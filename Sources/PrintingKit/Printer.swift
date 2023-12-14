@@ -13,6 +13,8 @@ import AppKit
 import PDFKit
 #endif
 
+import SwiftUI
+
 #if os(iOS) || os(macOS)
 /**
  This class implements the ``Printer`` protocol for macOS.
@@ -27,7 +29,7 @@ open class Printer {
     open func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .attributedString: return true
-        case .imageData(let data): 
+        case .imageData(let data):
             #if os(iOS)
             return data.canCreateExportFile
             #elseif os(macOS)
@@ -43,6 +45,11 @@ open class Printer {
         case .pdfFile: return true
         case .string: return true
         }
+    }
+    
+    /// Whether or not the printer can print a certain view.
+    open func canPrint<ViewType: View>(_ view: ViewType) -> Bool {
+        canPrintViews
     }
     
     /// Print the provided item.

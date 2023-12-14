@@ -25,7 +25,7 @@ PrintingKit currently supports the following `PrintItem` types:
 * `.string(_:configuration:)` - a plain string.
 * `.view(_:withScale:)` - any SwiftUI view (iOS only).
 
-PrintingKit also contains PDF-specific utilities.
+Note that some items currently can't be printed on some platforms.
 
 
 
@@ -59,7 +59,7 @@ struct MyView: View {
 You can also let your views implement `PrinterView` to make printing even easier.
 
 ```swift
-struct MyView: View {
+struct MyView: View, PrinterView {
 
     let image = Image(systemName: "checkmark")
     
@@ -85,7 +85,7 @@ For more information, see the [getting started][Getting-Started].
 
 ## Documentation
 
-The [online documentation][Documentation] has more information, code examples, etc., and lets you overview the various parts of the library.
+The [online documentation][Documentation] has more information, code examples, etc.
 
 
 
@@ -95,11 +95,9 @@ The demo app lets you explore the library on iOS and macOS. To try it out, just 
 
 
 
-## Support this library
+## Support my work 
 
-I manage my various open-source projects in my free time and am really thankful for any help I can get from the community. 
-
-You can sponsor this project on [GitHub Sponsors][Sponsors] or get in touch for paid support.
+You can [sponsor me][Sponsors] on GitHub Sponsors or [reach out][Email] for paid support, to help support my [open-source projects][GitHub].
 
 
 
@@ -122,6 +120,7 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 
 [Email]: mailto:daniel.saidi@gmail.com
 [Website]: https://www.danielsaidi.com
+[GitHub]: https://www.github.com/danielsaidi
 [Twitter]: https://www.twitter.com/danielsaidi
 [Mastodon]: https://mastodon.social/@danielsaidi
 [Sponsors]: https://github.com/sponsors/danielsaidi
