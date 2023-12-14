@@ -10,8 +10,13 @@ Until then, deprecated features may be removed in the next minor version.
 
 This version bumps to Swift 5.9 and replaces `Printer` with `StandardPrinter` to avoid having a protocol. 
 
+### ✨ New Features
+
+* `Printer` is now open to inheritance and customizations.
+
 ### 💡 Behavior Changes
 
+* `Printer` is now a single class for all supported platforms.
 * `PrintItem.string` is now a proper enum case.
 
 

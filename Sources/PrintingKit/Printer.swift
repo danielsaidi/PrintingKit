@@ -19,11 +19,11 @@ import PDFKit
  
  This class uses a `AppKit` and `PDFKit` to perform printing.
  */
-public class Printer {
+open class Printer {
     
     public init() {}
     
-    public func canPrint(_ item: PrintItem) -> Bool {
+    open func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .attributedString: return true
         case .imageData(let data): 
@@ -44,7 +44,7 @@ public class Printer {
         }
     }
     
-    public func print(_ item: PrintItem) throws {
+    open func print(_ item: PrintItem) throws {
         switch item {
         case .attributedString(let str, let conf): try print(str, config: conf)
         case .imageData(let data): try print(imageData: data)
