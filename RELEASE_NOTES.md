@@ -19,6 +19,13 @@ This version bumps to Swift 5.9 and replaces `Printer` with `StandardPrinter` to
 * `Printer` is now a single class for all supported platforms.
 * `PrintItem.string` is now a proper enum case.
 
+### 🗑️ Deprecations
+
+* `PrinterError` has been renamed to `Printer.PrintError`.
+* `PrinterView.canPrintItem(...)` has been renamed to `PrintView.canPrint(...)`.
+* `PrinterView.printItem(...)` has been renamed to `PrintView.print(...)`.
+* `PrinterView.printView(...)` has been renamed to `PrintView.print(...)`.
+* `PrinterView.printViewAsTask(...)` has been renamed to `PrintView.printInTask(...)`.
 
 
 ## 0.2
@@ -33,8 +40,7 @@ This version adds PDF utilities and more print item types.
 * `PrinterView` has new `canPrint` functions.
 * `PrintItem` has new `.imageData`, `.pdfData`, `.attributedString`, `.string` and `.view` types.
 
-
-### 🚨 Breaking changes
+### 💥 Breaking Changes
 
 * `PrinterItem.image(at:)` has been renamed to `.imageFile`.
 * `PrinterItem.pdf(at:)` has been renamed to `.pdfFile`.

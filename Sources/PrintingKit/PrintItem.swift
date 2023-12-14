@@ -9,12 +9,10 @@
 import SwiftUI
 
 /**
- This enum defines all printable types that are supported by
- this library.
+ This enum defines all supported printable item types.
  
  The URL-based item types use optional URLs as a convenience,
- to make it easier to create item types. A printer can throw
- a ``PrinterError`` if the URL is not set for a certain item.
+ to make it easier to create item types.
  */
 public enum PrintItem {
     
