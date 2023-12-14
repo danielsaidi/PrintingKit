@@ -8,6 +8,14 @@ Until then, deprecated features may be removed in the next minor version.
 
 ## 0.2
 
+### 💡 Behavior Changes
+
+* `PrintItem.string` is now a proper enum case.
+
+
+
+## 0.2
+
 This version adds PDF utilities and more print item types. 
 
 ### ✨ New Features
@@ -23,6 +31,7 @@ This version adds PDF utilities and more print item types.
 
 * `PrinterItem.image(at:)` has been renamed to `.imageFile`.
 * `PrinterItem.pdf(at:)` has been renamed to `.pdfFile`.
+
 
 
 ## 0.1

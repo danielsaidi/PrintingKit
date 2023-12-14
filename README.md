@@ -1,17 +1,13 @@
 <p align="center">
-    <img src ="Resources/Logo_GitHub.png" alt="PrintingKit Logo" title="PrintingKit" width=600 />
+    <img src ="Resources/Logo_GitHub.png" alt="PrintingKit Logo" title="PrintingKit" />
 </p>
 
 <p align="center">
     <img src="https://img.shields.io/github/v/release/danielsaidi/PrintingKit?color=%2300550&sort=semver" alt="Version" title="Version" />
-    <img src="https://img.shields.io/badge/swift-5.8-orange.svg" alt="Swift 5.8" title="Swift 5.8" />
+    <img src="https://img.shields.io/badge/swift-5.9-orange.svg" alt="Swift 5.9" title="Swift 5.9" />
     <img src="https://img.shields.io/github/license/danielsaidi/PrintingKit" alt="MIT License" title="MIT License" />
-    <a href="https://twitter.com/danielsaidi">
-        <img src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fdanielsaidi" alt="Twitter: @danielsaidi" title="Twitter: @danielsaidi" />
-    </a>
-    <a href="https://mastodon.social/@danielsaidi">
-        <img src="https://img.shields.io/mastodon/follow/000253346?label=mastodon&style=social" alt="Mastodon: @danielsaidi@mastodon.social" title="Mastodon: @danielsaidi@mastodon.social" />
-    </a>
+    <a href="https://twitter.com/danielsaidi"><img src="https://img.shields.io/twitter/url?label=Twitter&style=social&url=https%3A%2F%2Ftwitter.com%2Fdanielsaidi" alt="Twitter: @danielsaidi" title="Twitter: @danielsaidi" /></a>
+    <a href="https://mastodon.social/@danielsaidi"><img src="https://img.shields.io/mastodon/follow/000253346?label=mastodon&style=social" alt="Mastodon: @danielsaidi@mastodon.social" title="Mastodon: @danielsaidi@mastodon.social" /></a>
 </p>
 
 
@@ -19,16 +15,7 @@
 
 PrintingKit helps you print PDF documents, images, etc. in Swift and SwiftUI.
 
-For instance, to print a PDF file in the main bundle, just do this:
-
-```swift
-let bundle = Bundle.main
-let url = bundle.url(forResource: "doc", withExtension: "pdf")
-let item = PrintItem.pdfFile(at: url)
-try? StandardPrinter().print(item)
-```
-
-PrintingKit currently supports the following `PrintItem` types:
+PrintingKit currently supports the following printable types:
 
 * `.attributedString(_:configuration:)` - an attributed string.
 * `.imageData(_:)` - JPG or PNG data.
@@ -38,7 +25,7 @@ PrintingKit currently supports the following `PrintItem` types:
 * `.string(_:configuration:)` - a plain string.
 * `.view(_:withScale:)` - any SwiftUI view. 
 
-PrintingKit supports `iOS 13` and `macOS 11`.
+PrintingKit also contains PDF-specific utilities.
 
 
 
@@ -56,9 +43,7 @@ If you prefer to not have external dependencies, you can also just copy the sour
 
 ## Getting started
 
-The [online documentation][Documentation] has a [getting started][Getting-Started] guide that helps you get started with PrintingKit.
-
-For instance, to print a PDF in SwiftUI, just do this:
+To print a PDF document in the main bundle in SwiftUI, just do this:
 
 ```swift
 struct MyView: View {

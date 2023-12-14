@@ -28,6 +28,7 @@ public class StandardPrinter: Printer {
         case .imageFile: return canPrintImages
         case .pdfData(let data): return data.canCreateExportFile
         case .pdfFile: return true
+        case .string: return true
         }
     }
     
@@ -38,11 +39,22 @@ public class StandardPrinter: Printer {
         case .imageFile: throw PrinterError.unsupportedOperation
         case .pdfData(let data): try print(pdfData: data)
         case .pdfFile(let url): try print(pdfFileAt: url)
+        case .string(let string, let config): try print(string, withConfiguration: config)
         }
     }
 }
 
 private extension StandardPrinter {
+    
+    func print(
+        _ string: String,
+        withConfiguration config: Pdf.PageConfiguration
+    ) throws {
+        try print(
+            NSAttributedString(string: string),
+            withConfiguration: config
+        )
+    }
     
     func print(
         _ string: NSAttributedString,
