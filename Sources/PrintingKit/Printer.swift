@@ -84,7 +84,7 @@ open class Printer {
     /// A shared printer instance.
     ///
     /// You can replace this to change the global default.
-    static var shared = Printer()
+    public static var shared = Printer()
 }
 
 public extension Printer {

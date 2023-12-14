@@ -8,9 +8,11 @@ Until then, deprecated features may be removed in the next minor version.
 
 ## 0.4
 
-This version removes deprecated code and makes view and image printing work on macOS.
+This version makes view and image printing work on macOS.
 
 ### 🗑️ Deprecations
+
+* All previously deprecated code has been removed.
 
 * `Printer.canPrintImages` has been deprecated.
 * `Printer.canPrintViews` has been deprecated.

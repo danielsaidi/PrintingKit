@@ -15,12 +15,12 @@ PrintingKit currently supports the following ``PrintItem`` types:
 * ``PrintItem/string(_:configuration:)`` - a plain string.
 * ``PrintItem/view(_:withScale:)`` - any SwiftUI view (iOS only).
 
-To print any of the supported items, just use a `Printer` instance:
+To print any of the supported items, just use a ``Printer`` instance, or ``Printer/shared``:
 
 ```swift
 struct MyView: View {
 
-    let printer = Printer() 
+    let printer = Printer.shared
 
     var body: some View {
         VStack {
