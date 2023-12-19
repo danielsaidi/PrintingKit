@@ -135,7 +135,7 @@ private extension FileManager {
 }
 #endif
 
-#if canImport(AppKit)
+#if os(macOS)
 import AppKit
 
 private extension NSImage {
