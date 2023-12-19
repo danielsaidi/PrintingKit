@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.4.1
+
+This version makes the package build in macOS Catalyst.
+
+
+
 ## 0.4
 
 This version makes view and image printing work on macOS.
