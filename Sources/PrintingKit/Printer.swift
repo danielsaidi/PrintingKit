@@ -6,7 +6,7 @@
 //  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
@@ -15,7 +15,7 @@ import PDFKit
 
 import SwiftUI
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 /**
  This class can be used to print ``PrintItem`` with platform
  specific configurations.
@@ -125,7 +125,7 @@ private extension Printer {
     func print(fileAt url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
         DispatchQueue.main.async {
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
             let info = UIPrintInfo(dictionary: nil)
             info.outputType = .general
             info.jobName = "Standard Printer Job"
@@ -146,7 +146,7 @@ private extension Printer {
     }
     
     func print(imageData data: Data) throws {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let url = try data.createExportFile(withExtension: "img")
         try print(fileAt: url)
         #else
@@ -167,7 +167,7 @@ private extension Printer {
     
     func print(imageFileAt url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         try print(fileAt: url)
         #else
         Task {

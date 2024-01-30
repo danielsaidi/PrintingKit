@@ -19,7 +19,7 @@ public extension NSAttributedString {
     func pdfData(
         withConfiguration config: Pdf.PageConfiguration
     ) throws -> Data {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         try iosPdfData(for: config)
         #elseif os(macOS)
         try macosPdfData(for: config)
@@ -90,7 +90,7 @@ private extension NSAttributedString {
 }
 #endif
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import UIKit
 
 private extension NSAttributedString {
