@@ -8,7 +8,7 @@ Until then, deprecated features may be removed in the next minor version.
 
 ## 0.4.2
 
-This version makes PrintingKit work on visionOS.
+Thanks to [Cihat Gündüz](https://github.com/FlineDevPublic), this version makes PrintingKit work on visionOS.
 
 
 
