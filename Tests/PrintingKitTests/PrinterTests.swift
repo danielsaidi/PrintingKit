@@ -10,7 +10,7 @@ import PrintingKit
 import SwiftUI
 import XCTest
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 final class PrinterTests: XCTestCase {
     
     let printer = Printer()

@@ -6,7 +6,7 @@
 //  Copyright © 2023 Daniel Saidi. All rights reserved.
 //
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
 
 /**
@@ -79,7 +79,7 @@ public extension PrintItem {
 extension ImageRenderer {
     
     var imageData: Data? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         uiImage?.pngData()
         #elseif os(macOS)
         nsImage?.jpegData(compressionQuality: 1)
