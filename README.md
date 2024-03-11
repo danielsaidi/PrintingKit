@@ -14,7 +14,7 @@
 
 ## About PrintingKit
 
-PrintingKit is a Swift SDK that helps you print PDF documents, images, etc. in Swift and SwiftUI.
+PrintingKit is a Swift SDK that helps you print PDF documents, images, strings, views, etc. in Swift & SwiftUI.
 
 With PrintingKit, you just have to create a `Printer` or use `Printer.shared`, then use it to print any of supported `PrintItem` with a single line of code.
 
