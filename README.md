@@ -16,7 +16,7 @@
 
 PrintingKit is a Swift SDK that helps you print PDF documents, images, strings, views, etc. in Swift and SwiftUI.
 
-PrintingKit currently supports the following `PrintItem` types:
+With PrintingKit, you just have to create a `Printer` or use `Printer.shared`, then use it to print any of these supported `PrintItem` types:
 
 * `.attributedString(_:configuration:)` - an attributed string.
 * `.imageData(_:)` - JPG or PNG data.
@@ -26,7 +26,7 @@ PrintingKit currently supports the following `PrintItem` types:
 * `.string(_:configuration:)` - a plain string.
 * `.view(_:withScale:)` - any SwiftUI view.
 
-With PrintingKit, you just have to create a `Printer` or use `Printer.shared`, then use it to print any of supported `PrintItem` with a single line of code.
+More types can be added in the future, to simplify printing even more types. Feel free to contribute if you have a new print item type that you'd like to support.
 
 
 
@@ -42,7 +42,7 @@ https://github.com/danielsaidi/PrintingKit.git
 
 ## Getting started
 
-To print any of the supported items, just use a custom `Printer` instance, or `Printer.shared`:
+To print any of supported print item type, just create a `Printer` instance, or use `Printer.shared`:
 
 ```swift
 struct MyView: View {
