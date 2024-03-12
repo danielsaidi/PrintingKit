@@ -3,7 +3,7 @@
 //  PrintingKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
-//  Copyright © 2023 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
 //
 
 #if os(iOS) || os(macOS) || os(visionOS)
@@ -41,12 +41,12 @@ public extension PrintItem {
     /// Get a quick look url to the item, if any.
     var quickLookUrl: URL? {
         switch self {
-        case .attributedString: return nil
-        case .imageData: return nil
-        case .imageFile(let url): return url
-        case .pdfData: return nil
-        case .pdfFile(let url): return url
-        case .string: return nil
+        case .attributedString: nil
+        case .imageData: nil
+        case .imageFile(let url): url
+        case .pdfData: nil
+        case .pdfFile(let url): url
+        case .string: nil
         }
     }
 }

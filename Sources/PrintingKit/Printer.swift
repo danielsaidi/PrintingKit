@@ -3,7 +3,7 @@
 //  SwiftUIKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
-//  Copyright © 2023 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
 //
 
 #if os(iOS) || os(visionOS)
@@ -17,25 +17,17 @@ import SwiftUI
 
 #if os(iOS) || os(macOS) || os(visionOS)
 /**
- This class can be used to print ``PrintItem`` with platform
- specific configurations.
+ This class can be used to print any supported ``PrintItem``.
  
- You can use the static ``Printer/shared`` instance when you
- don't want to create separate instances.
+ You can use the static ``Printer/shared`` if you don't want
+ to use separate instances or custom implementations.
  
- You can subclass this class then override any functionality
- that you want to customize.
+ You can inherit this class then override any parts you want.
  */
 open class Printer {
     
     /// Create a printer instance.
     public init() {}
-    
-    @available(*, deprecated, message: "Use the non-optional version.")
-    open func canPrint(_ item: PrintItem?) -> Bool {
-        guard let item else { return false }
-        return canPrint(item)
-    }
     
     /// Whether or not the printer can print a certain item.
     open func canPrint(_ item: PrintItem) -> Bool {
@@ -47,11 +39,6 @@ open class Printer {
         case .pdfFile: true
         case .string: true
         }
-    }
-    
-    @available(*, deprecated, message: "This is no longer needed.")
-    open func canPrint<ViewType: View>(_ view: ViewType) -> Bool {
-        canPrintViews
     }
     
     /// Print the provided item.
@@ -85,15 +72,6 @@ open class Printer {
     ///
     /// You can replace this to change the global default.
     public static var shared = Printer()
-}
-
-public extension Printer {
-    
-    @available(*, deprecated, message: "This is no longer needed.")
-    var canPrintImages: Bool { true }
-    
-    @available(*, deprecated, message: "This is no longer needed.")
-    var canPrintViews: Bool { canPrintImages }
 }
 
 private extension Printer {

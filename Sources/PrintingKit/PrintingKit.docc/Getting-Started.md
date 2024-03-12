@@ -2,6 +2,17 @@
 
 This article explains how to get started with PrintingKit.
 
+@Metadata {
+
+    @PageImage(
+        purpose: card,
+        source: "Page",
+        alt: "Page icon"
+    )
+
+    @PageColor(blue)
+}
+
 
 ## Overview
 
@@ -9,13 +20,18 @@ PrintingKit currently supports the following ``PrintItem`` types:
 
 * ``PrintItem/attributedString(_:configuration:)`` - an attributed string.
 * ``PrintItem/imageData(_:)`` - JPG or PNG data (iOS only).
-* ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL (iOS only).
+* ``PrintItem/imageFile(at:)`` - a JPG or PNG file at a certain URL.
 * ``PrintItem/pdfData(_:)`` - PDF document data.
 * ``PrintItem/pdfFile(at:)`` - a PDF document file at a certain URL.
 * ``PrintItem/string(_:configuration:)`` - a plain string.
-* ``PrintItem/view(_:withScale:)`` - any SwiftUI view (iOS only).
+* ``PrintItem/view(_:withScale:)`` - any SwiftUI view.
 
-To print any of the supported items, just use a ``Printer`` instance, or ``Printer/shared``:
+More types can be added in the future. Feel free to contribute if you have a new type that you'd like to support.
+
+
+## How to print a print item
+
+To print any of the supported ``PrintItem``s, just create a ``Printer`` instance, or use ``Printer/shared``:
 
 ```swift
 struct MyView: View {
@@ -38,4 +54,9 @@ struct MyView: View {
 }
 ```
 
-There's a static ``Printer/shared`` printer instance that you can use if you don't want to create separate printer instances. You can override it to change the global default, for instance when you create a custom ``Printer`` subclass and want to use it everywhere. 
+This will show a print dialog that you can use to perform the print operation, or export to PDF.
+
+
+## PDF support
+
+RichTextKit also has ``Pdf`` utilities, that cna be used to configure a PDF documentations, page margins, etc. They're used by the SDK when printing ``PrintItem/pdfData(_:)`` and ``PrintItem/pdfFile(at:)``, but you can use then as standalone utilities as well.
