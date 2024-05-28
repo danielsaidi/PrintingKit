@@ -18,7 +18,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "PrintingKit"
+            name: "PrintingKit",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
         ),
         .testTarget(
             name: "PrintingKitTests",

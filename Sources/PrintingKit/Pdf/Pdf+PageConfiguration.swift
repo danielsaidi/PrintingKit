@@ -37,9 +37,7 @@ public extension Pdf {
 public extension Pdf.PageConfiguration {
 
     /// The standard PDF page configuration.
-    ///
-    /// You can overwrite this to change the global default.
-    static var standard = Self()
+    static var standard: Self { .init() }
 }
 
 public extension Pdf.PageConfiguration {

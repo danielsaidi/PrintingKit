@@ -10,6 +10,7 @@ import PrintingKit
 import QuickLook
 import SwiftUI
 
+@MainActor
 struct ContentView: View {
     
     private let printer = Printer()

@@ -24,6 +24,7 @@ import SwiftUI
  
  You can inherit this class then override any parts you want.
  */
+@MainActor
 open class Printer {
     
     /// Create a printer instance.
@@ -63,7 +64,7 @@ open class Printer {
         withScale scale: CGFloat = 2
     ) {
         Task {
-            let item = try await PrintItem.view(view, withScale: scale)
+            let item = try PrintItem.view(view, withScale: scale)
             try? print(item)
         }
     }
@@ -74,6 +75,7 @@ open class Printer {
     public static var shared = Printer()
 }
 
+@MainActor
 private extension Printer {
     
     func print(

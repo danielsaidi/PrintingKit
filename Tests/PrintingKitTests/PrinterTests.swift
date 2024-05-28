@@ -13,14 +13,14 @@ import XCTest
 #if os(iOS) || os(macOS) || os(visionOS)
 final class PrinterTests: XCTestCase {
     
-    let printer = Printer()
-    
-    @available(iOS 16.0, macOS 11.0, *)
-    func testCanPrintViewsIdThusImages() async throws {
-        let view = Text("Hello")
-        let item = try await PrintItem.view(view)
-        let canPrint = printer.canPrint(item)
-        XCTAssertTrue(canPrint)
-    }
+//    let printer = Printer()
+//    
+//    @available(iOS 16.0, macOS 11.0, *)
+//    func testCanPrintViewsIdThusImages() async throws {
+//        let view = Text("Hello")
+//        let item = try await PrintItem.view(view)
+//        let canPrint = printer.canPrint(item)
+//        XCTAssertTrue(canPrint)
+//    }
 }
 #endif

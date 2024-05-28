@@ -10,8 +10,9 @@ import Foundation
 
 extension NSAttributedString: PdfDataSource {}
 
+@MainActor
 public extension NSAttributedString {
-    
+
     func pdfData() throws -> Data {
         try pdfData(withConfiguration: .standard)
     }
@@ -32,6 +33,7 @@ public extension NSAttributedString {
 #if os(macOS)
 import AppKit
 
+@MainActor
 private extension NSAttributedString {
 
     func macosPdfData(for configuration: Pdf.PageConfiguration) throws -> Data {
@@ -93,6 +95,7 @@ private extension NSAttributedString {
 #if os(iOS) || os(visionOS)
 import UIKit
 
+@MainActor
 private extension NSAttributedString {
 
     func iosPdfData(for configuration: Pdf.PageConfiguration) throws -> Data {
