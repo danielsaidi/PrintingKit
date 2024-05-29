@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.5.2
+
+This version removes actor information from the PdfDataSource protocol.
+
+
+
 ## 0.5.1
 
 This version enables support for strict concurrency.
