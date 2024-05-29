@@ -16,14 +16,10 @@ import PDFKit
 import SwiftUI
 
 #if os(iOS) || os(macOS) || os(visionOS)
-/**
- This class can be used to print any supported ``PrintItem``.
- 
- You can use the static ``Printer/shared`` if you don't want
- to use separate instances or custom implementations.
- 
- You can inherit this class then override any parts you want.
- */
+/// This class can be used to print any ``PrintItem``.
+///
+/// You can use ``Printer/shared`` if you do not want to use
+/// separate instances or custom implementations.
 @MainActor
 open class Printer {
     

@@ -9,12 +9,10 @@
 #if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
 
-/**
- This enum defines all supported printable item types.
- 
- The URL-based item types use optional URLs as a convenience,
- to make it easier to create item types.
- */
+/// This enum defines all supported printable types.
+///
+/// The URL-based types use optional URLs as convenience, to
+/// make it easier to create item types.
 public enum PrintItem {
     
     /// An attributed string with a PDF page configuration.
