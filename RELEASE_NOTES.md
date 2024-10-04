@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.6
+
+This version makes PrintingKit use Swift 6.
+
+
+
 ## 0.5.2
 
 This version removes actor information from the PdfDataSource protocol.

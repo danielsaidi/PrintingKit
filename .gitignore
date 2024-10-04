@@ -1,13 +1,6 @@
-# SPM defaults
 .DS_Store
 /.build
-.swiftpm/
 /Packages
-
-# Fastlane
-Fastlane/report.xml
-Fastlane/Preview.html
-Fastlane/test_output
-Fastlane/README.md
-
-**/*.xcuserstate
+.swiftpm/
+xcuserdata/
+DerivedData/

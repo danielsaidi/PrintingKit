@@ -1,5 +1,5 @@
 <p align="center">
-    <img src ="Resources/Logo_GitHub.png" alt="PrintingKit Logo" title="PrintingKit" />
+    <img src ="Resources/Logo_Rounded.png" alt="PrintingKit Logo" title="PrintingKit" />
 </p>
 
 <p align="center">
@@ -65,19 +65,19 @@ struct MyView: View {
 }
 ``` 
 
-For more information, please see the [getting started guide][Getting-Started].
+See the online [getting started guide][Getting-Started] for more information.
 
 
 
 ## Documentation
 
-The [online documentation][Documentation] has more information, articles, code examples, etc.
+The online [documentation][Documentation] has more information, articles, code examples, etc.
 
 
 
 ## Demo Application
 
-The demo app lets you explore the library. To try it out, just open and run the `Demo` project.
+The `Demo` folder has an app that lets you explore the library.
 
 
 
@@ -117,4 +117,5 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 
 [Documentation]: https://danielsaidi.github.io/PrintingKit
 [Getting-Started]: https://danielsaidi.github.io/PrintingKit/documentation/printingkit/getting-started
+
 [License]: https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE
