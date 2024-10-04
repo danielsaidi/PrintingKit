@@ -23,7 +23,7 @@ struct ContentView: View {
     
     @State
     private var text = "Type text here..."
-    
+
     private var attributedString: NSAttributedString {
         .init(string: text)
     }

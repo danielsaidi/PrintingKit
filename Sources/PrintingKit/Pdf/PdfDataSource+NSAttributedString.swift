@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSAttributedString: PdfDataSource {}
+extension NSAttributedString: @preconcurrency PdfDataSource {}
 
 @MainActor
 public extension NSAttributedString {
