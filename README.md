@@ -67,6 +67,8 @@ struct MyView: View {
 
 See the online [getting started guide][Getting-Started] for more information.
 
+For a sandboxed application (default on macOS) please don't forget to allow for printing in the target's "Signing & Capabilities" > "App Sandbox" section or you'll be met with the error "This application does not support printing.".
+
 
 
 ## Documentation
