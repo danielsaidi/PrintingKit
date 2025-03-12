@@ -60,3 +60,10 @@ This will show a print dialog that you can use to perform the print operation, o
 ## PDF support
 
 PrintingKit also has ``Pdf`` utilities, that can be used to configure a PDF documentations, page margins, etc. They're used by the SDK when printing ``PrintItem/pdfData(_:)`` and ``PrintItem/pdfFile(at:)``, but you can use then as standalone utilities as well.
+
+
+## Configuring your project for macOS
+
+There are two settings that are manadatory for a sandboxed application on macOS (which is default). In the target's "Signing & Capabilities" > "App Sandbox" section 
+1. check the "Printer" checkbox or you'll be met with the error "This application does not support printing." and
+2. set the "User Selected File" type under "File Access" to "Read/Write", or the error "Unable to display save panel …" will show up
