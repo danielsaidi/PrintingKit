@@ -18,18 +18,20 @@ PrintingKit is a Swift and SwiftUI SDK that helps you print images, strings, vie
 
 With PrintingKit, you just have to create a `Printer` instance, or use `Printer.shared`, then use it to print any of the following supported printable types:
 
-* `printAttributedString(_:configuration:)` - print an attributed string.
-* `printData(_:withFileExtension)` - try to print generic data.
+* `printAttributedString(_:config:)` - print an attributed string.
+* `printData(_:withFileExtension:)` - try to print generic data.
 * `printFile(at:)` - try to print a generic file.
 * `printImage(_:)` - print a `UIImage` or `NSImage`.
 * `printImageData(_:)` - print JPG or PNG data.
 * `printImageFile(at:)` - print a JPG or PNG file at a certain URL.
 * `printPdfData(_:)` - print PDF document data.
 * `printPdfFile(at:)` - print a PDF document file at a certain URL.
-* `printString(_:configuration:)` - print a plain string.
+* `printString(_:config:)` - print a plain string.
 * `printView(_:withScale:)` - print a SwiftUI view.
 
 Note that only certain functions support providing a page configuration, which can specify paper size and margins.
+
+PrintingKit works on both iOS and macOS.
 
 
 
@@ -62,7 +64,7 @@ struct MyView: View {
 }
 ``` 
 
-See the online [getting started guide][Getting-Started] for more information.
+PrintingKit also has PDF utilities, which are used to print certain types. Since these utilies are the only ones that support paper size, page margins, etc. we should aim to make more print functions use PDF as print format.
 
 
 
@@ -114,5 +116,4 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 [Twitter]: https://twitter.com/danielsaidi
 
 [Documentation]: https://danielsaidi.github.io/PrintingKit
-[Getting-Started]: https://danielsaidi.github.io/PrintingKit/documentation/printingkit/getting-started
 [License]: https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE
