@@ -36,23 +36,20 @@ import AppKit
 @MainActor
 private extension NSAttributedString {
 
-    func macosPdfData(for configuration: Printer.PageConfiguration) throws -> Data {
+    func macosPdfData(for config: Printer.PageConfiguration) throws -> Data {
         do {
             let fileUrl = try macosPdfFileUrl()
-            let printInfo = try macosPdfPrintInfo(
-                for: configuration,
-                fileUrl: fileUrl)
-
+            let info = try macosPdfPrintInfo(for: config, fileUrl: fileUrl)
             let scrollView = NSTextView.scrollableTextView()
-            scrollView.frame = configuration.paperRect
+            scrollView.frame = config.paperRect
             let textView = scrollView.documentView as? NSTextView ?? NSTextView()
             sleepToPrepareTextView()
             textView.textStorage?.setAttributedString(self)
 
-            let printOperation = NSPrintOperation(view: textView, printInfo: printInfo)
-            printOperation.showsPrintPanel = false
-            printOperation.showsProgressPanel = false
-            printOperation.run()
+            let operation = NSPrintOperation(view: textView, printInfo: info)
+            operation.showsPrintPanel = false
+            operation.showsProgressPanel = false
+            operation.run()
 
             return try Data(contentsOf: fileUrl)
         } catch {
@@ -69,21 +66,21 @@ private extension NSAttributedString {
     }
 
     func macosPdfPrintInfo(
-        for configuration: Printer.PageConfiguration,
+        for config: Printer.PageConfiguration,
         fileUrl: URL) throws -> NSPrintInfo {
-        let printOpts: [NSPrintInfo.AttributeKey: Any] = [
+        let options: [NSPrintInfo.AttributeKey: Any] = [
             .jobDisposition: NSPrintInfo.JobDisposition.save,
             .jobSavingURL: fileUrl]
-        let printInfo = NSPrintInfo(dictionary: printOpts)
-        printInfo.horizontalPagination = .fit
-        printInfo.verticalPagination = .automatic
-        printInfo.topMargin = configuration.pageMargins.top
-        printInfo.leftMargin = configuration.pageMargins.left
-        printInfo.rightMargin = configuration.pageMargins.right
-        printInfo.bottomMargin = configuration.pageMargins.bottom
-        printInfo.isHorizontallyCentered = false
-        printInfo.isVerticallyCentered = false
-        return printInfo
+        let info = NSPrintInfo(dictionary: options)
+        info.horizontalPagination = .fit
+        info.verticalPagination = .automatic
+        info.topMargin = config.pageMargins.top
+        info.leftMargin = config.pageMargins.left
+        info.rightMargin = config.pageMargins.right
+        info.bottomMargin = config.pageMargins.bottom
+        info.isHorizontallyCentered = false
+        info.isVerticallyCentered = false
+        return info
     }
 
     func sleepToPrepareTextView() {
@@ -98,31 +95,31 @@ import UIKit
 @MainActor
 private extension NSAttributedString {
 
-    func iosPdfData(for configuration: Printer.PageConfiguration) throws -> Data {
-        let pageRenderer = iosPdfPageRenderer(for: configuration)
-        let paperRect = configuration.paperRect
+    func iosPdfData(for config: Printer.PageConfiguration) throws -> Data {
+        let renderer = iosPdfPageRenderer(for: config)
+        let paperRect = config.paperRect
         let pdfData = NSMutableData()
         UIGraphicsBeginPDFContextToData(pdfData, paperRect, nil)
-        let range = NSRange(location: 0, length: pageRenderer.numberOfPages)
-        pageRenderer.prepare(forDrawingPages: range)
+        let range = NSRange(location: 0, length: renderer.numberOfPages)
+        renderer.prepare(forDrawingPages: range)
         let bounds = UIGraphicsGetPDFContextBounds()
-        for i in 0  ..< pageRenderer.numberOfPages {
+        for i in 0  ..< renderer.numberOfPages {
             UIGraphicsBeginPDFPage()
-            pageRenderer.drawPage(at: i, in: bounds)
+            renderer.drawPage(at: i, in: bounds)
         }
         UIGraphicsEndPDFContext()
         return pdfData as Data
     }
 
     func iosPdfPageRenderer(for configuration: Printer.PageConfiguration) -> UIPrintPageRenderer {
-        let printFormatter = UISimpleTextPrintFormatter(attributedText: self)
+        let formatter = UISimpleTextPrintFormatter(attributedText: self)
         let paperRect = NSValue(cgRect: configuration.paperRect)
         let printableRect = NSValue(cgRect: configuration.printableRect)
-        let pageRenderer = UIPrintPageRenderer()
-        pageRenderer.addPrintFormatter(printFormatter, startingAtPageAt: 0)
-        pageRenderer.setValue(paperRect, forKey: "paperRect")
-        pageRenderer.setValue(printableRect, forKey: "printableRect")
-        return pageRenderer
+        let renderer = UIPrintPageRenderer()
+        renderer.addPrintFormatter(formatter, startingAtPageAt: 0)
+        renderer.setValue(paperRect, forKey: "paperRect")
+        renderer.setValue(printableRect, forKey: "printableRect")
+        return renderer
     }
 }
 #endif

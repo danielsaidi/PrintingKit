@@ -20,6 +20,11 @@ import SwiftUI
 ///
 /// You can use ``Printer/shared`` if you do not want to use
 /// separate instances or custom implementations.
+///
+/// Note that only some print functions support passing in a
+/// page configuration, which is required to specify a paper
+/// size and page margins. The support for passing in a page
+/// configuration should be extended in future versions.
 @MainActor
 open class Printer {
     
