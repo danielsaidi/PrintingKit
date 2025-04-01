@@ -6,6 +6,25 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.7
+
+This version replaces `PrintItem` with separate `Printer` functions.
+
+### ✨ Features
+
+* `Printer` has separate print functions for each operation.
+* `Printer` has new functions for printing views and images.
+
+### 💡 Adjustments
+
+### 🗑️ Deprecations
+
+* `PrintItem` is deprecated.
+* `Pdf.PageConfiguration` is moved to `Printer`.
+* `Pdf.PageMargins` is moved to `Printer`.
+
+
+
 ## 0.6
 
 This version makes PrintingKit use Swift 6.
