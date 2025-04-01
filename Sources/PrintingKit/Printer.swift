@@ -156,7 +156,7 @@ open class Printer {
     
     
     
-    /// MARK: - Deprecated
+    // MARK: - Deprecated
     
     @available(iOS 16.0, macOS 13.0, *)
     @available(*, deprecated, message: "Use `printView(_:withScale:)` instead.")
