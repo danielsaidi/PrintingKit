@@ -26,79 +26,33 @@ open class Printer {
     /// Create a printer instance.
     public init() {}
     
-    /// Whether or not the printer can print a certain item.
-    open func canPrint(_ item: PrintItem) -> Bool {
-        switch item {
-        case .attributedString: true
-        case .imageData(let data): data.canCreateExportFile
-        case .imageFile: true
-        case .pdfData(let data): data.canCreateExportFile
-        case .pdfFile: true
-        case .string: true
-        }
-    }
-    
-    /// Print the provided item.
-    open func print(_ item: PrintItem) throws {
-        switch item {
-        case .attributedString(let str, let conf): try print(str, config: conf)
-        case .imageData(let data): try print(imageData: data)
-        case .imageFile(let url): try print(imageFileAt: url)
-        case .pdfData(let data): try print(pdfData: data)
-        case .pdfFile(let url): try print(fileAt: url)
-        case .string(let str, let conf): try print(str, config: conf)
-        }
-    }
-    
-    /// Print the provided view within a non-thowing task.
-    ///
-    /// This is useful, since ``PrintItem/view(_:withScale:)``
-    /// is async, which is a bit complicated to use in views.
-    @available(iOS 16.0, macOS 13.0, *)
-    open func printViewInTask<Content: View> (
-        _ view: Content,
-        withScale scale: CGFloat = 2
-    ) {
-        Task {
-            let item = try PrintItem.view(view, withScale: scale)
-            try? print(item)
-        }
-    }
     
     /// A shared printer instance.
     ///
     /// You can replace this to change the global default.
     public static var shared = Printer()
-}
-
-@MainActor
-private extension Printer {
     
-    func print(
-        _ data: Data,
-        withFileExtension ext: String
-    ) throws {
-        let url = try data.createExportFile(withExtension: ext)
-        try print(fileAt: url)
-    }
     
-    func print( 
-        _ string: String,
-        config: Pdf.PageConfiguration
-    ) throws {
-        let string = NSAttributedString(string: string)
-        try print(string, config: config)
-    }
-    
-    func print(
+    /// Print the provided attributed string.
+    open func printAttributedString(
         _ string: NSAttributedString,
         config: Pdf.PageConfiguration
     ) throws {
         let data = try string.pdfData(withConfiguration: config)
-        try print(pdfData: data)
+        try printPdfData(data)
     }
     
-    func print(fileAt url: URL?) throws {
+    /// Print the provided data for a certain file extension.
+    open func printData(
+        _ data: Data,
+        withFileExtension ext: String
+    ) throws {
+        let url = try data.createExportFile(withExtension: ext)
+        try printFile(at: url)
+    }
+    
+    /// Print a file at the provided URL.
+    open func printFile(at url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
         DispatchQueue.main.async {
             #if os(iOS) || os(visionOS)
@@ -121,10 +75,11 @@ private extension Printer {
         }
     }
     
-    func print(imageData data: Data) throws {
+    /// Print the provided image data.
+    open func printImageData(_ data: Data) throws {
         #if os(iOS) || os(visionOS)
         let url = try data.createExportFile(withExtension: "img")
-        try print(fileAt: url)
+        try printFile(at: url)
         #else
         guard let image = NSImage(data: data) else { return }
         let imageView = NSImageView(image: image)
@@ -141,21 +96,86 @@ private extension Printer {
         #endif
     }
     
-    func print(imageFileAt url: URL?) throws {
+    /// Print an image file at the provided URL.
+    open func printImageFile(at url: URL?) throws {
         guard let url else { throw Printer.PrintError.invalidUrl }
         #if os(iOS) || os(visionOS)
-        try print(fileAt: url)
+        try printFile(at: url)
         #else
         Task {
             let result = try await URLSession.shared.data(from: url)
-            try print(imageData: result.0)
+            try printImageData(result.0)
         }
         #endif
     }
     
-    func print(pdfData data: Data) throws {
+    /// Print the provided PDF formatted data.
+    open func printPdfData(_ data: Data) throws {
         let url = try data.createExportFile(withExtension: "pdf")
-        try print(fileAt: url)
+        try printFile(at: url)
+    }
+    
+    /// Print the provided string.
+    open func printString(
+        _ string: String,
+        config: Pdf.PageConfiguration
+    ) throws {
+        let string = NSAttributedString(string: string)
+        try printAttributedString(string, config: config)
+    }
+    
+    /// Print the provided view as an image.
+    @available(iOS 16.0, macOS 13.0, *)
+    open func printView<Content: View> (
+        _ view: Content,
+        withScale scale: CGFloat = 2
+    ) throws {
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = scale
+        guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
+        try? printImageData(data)
+    }
+    
+    
+    
+    /// MARK: - Deprecated
+    
+    @available(iOS 16.0, macOS 13.0, *)
+    @available(*, deprecated, message: "Use `printView(_:withScale:)` instead.")
+    open func printViewInTask<Content: View> (
+        _ view: Content,
+        withScale scale: CGFloat = 2
+    ) {
+        Task {
+            let renderer = ImageRenderer(content: view)
+            renderer.scale = scale
+            guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
+            try? printImageData(data)
+        }
+    }
+    
+    @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the separate print functions instead.")
+    open func canPrint(_ item: PrintItem) -> Bool {
+        switch item {
+        case .attributedString: true
+        case .imageData(let data): data.canCreateExportFile
+        case .imageFile: true
+        case .pdfData(let data): data.canCreateExportFile
+        case .pdfFile: true
+        case .string: true
+        }
+    }
+    
+    @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the separate print functions instead.")
+    open func print(_ item: PrintItem) throws {
+        switch item {
+        case .attributedString(let str, let conf): try printAttributedString(str, config: conf)
+        case .imageData(let data): try printImageData(data)
+        case .imageFile(let url): try printImageFile(at: url)
+        case .pdfData(let data): try printPdfData(data)
+        case .pdfFile(let url): try printFile(at: url)
+        case .string(let str, let conf): try printString(str, config: conf)
+        }
     }
 }
 #endif
