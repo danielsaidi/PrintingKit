@@ -26,7 +26,7 @@ public extension FileManager {
         guard let fileUrl = cachesDirectoryUrl?
             .appendingPathComponent(id)
             .appendingPathExtension(fileExtension)
-        else { throw Printer.PrintError.cachesDirectoryDoesNotExist }
+        else { throw PrintError.cachesDirectoryDoesNotExist }
         try? removeItem(at: fileUrl)
         createFile(atPath: fileUrl.path, contents: data)
         return fileUrl

@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-#if os(iOS) || os(visionOS)
+#if canImport(UIKit)
 import UIKit
 
 public typealias PrintableImage = UIImage
 
 public extension UIImage {
     
-    /// Get the standard print data for an image.
+    /// Get the image's standard print data.
     var standardPrintData: Data? {
         pngData()
     }
@@ -27,8 +27,16 @@ public typealias PrintableImage = NSImage
 
 public extension NSImage {
     
+    /// Get the image's standard print data.
     var standardPrintData: Data? {
         jpegData(compressionQuality: 1)
+    }
+    
+    /// Get JPEG data from the image.
+    func jpegData(compressionQuality: CGFloat) -> Data? {
+        guard let image = cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        let bitmap = NSBitmapImageRep(cgImage: image)
+        return bitmap.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
     }
 }
 #endif

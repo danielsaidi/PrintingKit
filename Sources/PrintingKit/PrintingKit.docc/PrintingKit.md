@@ -78,6 +78,8 @@ PrintingKit is available under the MIT license.
 ### Essentials
 
 - ``Printer``
+- ``PrintError``
+- ``PrintableImage``
 
 ### Pdf
 

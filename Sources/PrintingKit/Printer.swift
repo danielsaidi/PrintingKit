@@ -15,7 +15,6 @@ import PDFKit
 
 import SwiftUI
 
-#if os(iOS) || os(macOS) || os(visionOS)
 /// This class can be used to print any ``PrintItem``.
 ///
 /// You can use ``Printer/shared`` if you do not want to use
@@ -52,13 +51,13 @@ open class Printer {
         _ data: Data,
         withFileExtension ext: String
     ) throws {
-        let url = try data.createExportFile(withExtension: ext)
+        let url = try data.canCreatePrintFile(withExtension: ext)
         try printFile(at: url)
     }
     
     /// Print a file at the provided URL.
     open func printFile(at url: URL?) throws {
-        guard let url else { throw Printer.PrintError.invalidUrl }
+        guard let url else { throw PrintError.invalidUrl }
         DispatchQueue.main.async {
             #if os(iOS) || os(visionOS)
             let info = UIPrintInfo(dictionary: nil)
@@ -83,7 +82,7 @@ open class Printer {
     /// Print the provided image's standard print data.
     open func printImage(_ image: PrintableImage) throws {
         guard let data = image.standardPrintData else {
-            throw Printer.PrintError.failedToExtractPrintDataFromImage
+            throw PrintError.failedToExtractPrintDataFromImage
         }
         try printImageData(data)
     }
@@ -91,9 +90,9 @@ open class Printer {
     /// Print the provided image data.
     open func printImageData(_ data: Data) throws {
         #if os(iOS) || os(visionOS)
-        let url = try data.createExportFile(withExtension: "img")
+        let url = try data.canCreatePrintFile(withExtension: "img")
         try printFile(at: url)
-        #else
+        #elseif os(macOS)
         guard let image = NSImage(data: data) else { return }
         let imageView = NSImageView(image: image)
         imageView.frame = NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
@@ -106,12 +105,14 @@ open class Printer {
         printOperation.showsPrintPanel = true
         printOperation.showsProgressPanel = true
         printOperation.run()
+        #else
+        throw PrintError.unsupportedPlatform
         #endif
     }
     
     /// Print an image file at the provided URL.
     open func printImageFile(at url: URL?) throws {
-        guard let url else { throw Printer.PrintError.invalidUrl }
+        guard let url else { throw PrintError.invalidUrl }
         #if os(iOS) || os(visionOS)
         try printFile(at: url)
         #else
@@ -124,7 +125,7 @@ open class Printer {
     
     /// Print the provided PDF formatted data.
     open func printPdfData(_ data: Data) throws {
-        let url = try data.createExportFile(withExtension: "pdf")
+        let url = try data.canCreatePrintFile(withExtension: "pdf")
         try printFile(at: url)
     }
     
@@ -148,10 +149,14 @@ open class Printer {
         _ view: Content,
         withScale scale: CGFloat = 2
     ) throws {
+        #if os(iOS) || os(visionOS) || os(macOS)
         let renderer = ImageRenderer(content: view)
         renderer.scale = scale
-        guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
+        guard let data = renderer.imageData else { throw PrintError.invalidViewData }
         try? printImageData(data)
+        #else
+        throw PrintError.unsupportedPlatform
+        #endif
     }
     
     
@@ -164,21 +169,23 @@ open class Printer {
         _ view: Content,
         withScale scale: CGFloat = 2
     ) {
+        #if os(iOS) || os(visionOS) || os(macOS)
         Task {
             let renderer = ImageRenderer(content: view)
             renderer.scale = scale
-            guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
+            guard let data = renderer.imageData else { throw PrintError.invalidViewData }
             try? printImageData(data)
         }
+        #endif
     }
     
     @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the separate print functions instead.")
     open func canPrint(_ item: PrintItem) -> Bool {
         switch item {
         case .attributedString: true
-        case .imageData(let data): data.canCreateExportFile
+        case .imageData(let data): data.canCreatePrintFile
         case .imageFile: true
-        case .pdfData(let data): data.canCreateExportFile
+        case .pdfData(let data): data.canCreatePrintFile
         case .pdfFile: true
         case .string: true
         }
@@ -196,4 +203,3 @@ open class Printer {
         }
     }
 }
-#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2025 Daniel Saidi. All rights reserved.
 //
 
+#if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
 
 @MainActor
@@ -23,3 +24,4 @@ extension ImageRenderer {
         #endif
     }
 }
+#endif

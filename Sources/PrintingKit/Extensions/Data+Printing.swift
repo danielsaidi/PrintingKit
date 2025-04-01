@@ -10,18 +10,14 @@ import Foundation
 
 extension Data {
     
-    var canCreateExportFile: Bool {
-        fileManager.hasCachesDirectory
+    var canCreatePrintFile: Bool {
+        FileManager.default.hasCachesDirectory
     }
     
-    var fileManager: FileManager {
-        .default
-    }
-    
-    func createExportFile(
+    func canCreatePrintFile(
         withExtension ext: String
     ) throws -> URL {
-        try fileManager.createCacheFile(
+        try FileManager.default.createCacheFile(
             with: self,
             fileExtension: ext
         )

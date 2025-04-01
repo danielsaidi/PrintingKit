@@ -1,4 +1,3 @@
-#if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
 
 public extension Pdf {
@@ -9,8 +8,6 @@ public extension Pdf {
     @available(*, deprecated, renamed: "Printer.PageMargins")
     typealias PageMargins = Printer.PageMargins
 }
-
-
 
 @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the Printer class directly.")
 public enum PrintItem {
@@ -46,6 +43,7 @@ public enum PrintItem {
     }
 }
 
+#if os(iOS) || os(macOS) || os(visionOS)
 @available(iOS 16.0, macOS 13.0, *)
 @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the Printer class directly.")
 public extension PrintItem {
@@ -65,7 +63,7 @@ public extension PrintItem {
     ) throws -> PrintItem {
         let renderer = ImageRenderer(content: view)
         renderer.scale = scale
-        guard let data = renderer.imageData else { throw Printer.PrintError.invalidViewData }
+        guard let data = renderer.imageData else { throw PrintError.invalidViewData }
         return imageData(data)
     }
 }
