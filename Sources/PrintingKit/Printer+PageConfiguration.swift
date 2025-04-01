@@ -1,5 +1,5 @@
 //
-//  Pdf+PageConfiguration.swift
+//  Printer+PageConfiguration.swift
 //  PrintingKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public extension Pdf {
+public extension Printer {
     
     /// This type defines a PDF document page configuration.
     struct PageConfiguration: Equatable {
@@ -34,13 +34,13 @@ public extension Pdf {
     }
 }
 
-public extension Pdf.PageConfiguration {
+public extension Printer.PageConfiguration {
 
     /// The standard PDF page configuration.
     static var standard: Self { .init() }
 }
 
-public extension Pdf.PageConfiguration {
+public extension Printer.PageConfiguration {
 
     /// Get the configuration's paper rectangle.
     var paperRect: CGRect {

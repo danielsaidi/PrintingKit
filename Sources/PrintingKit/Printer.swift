@@ -36,7 +36,7 @@ open class Printer {
     /// Print the provided attributed string.
     open func printAttributedString(
         _ string: NSAttributedString,
-        config: Pdf.PageConfiguration
+        config: PageConfiguration
     ) throws {
         let data = try string.pdfData(withConfiguration: config)
         try printPdfData(data)
@@ -73,6 +73,14 @@ open class Printer {
             view.print(with: .shared, autoRotate: true)
             #endif
         }
+    }
+    
+    /// Print the provided image's standard print data.
+    open func printImage(_ image: PrintableImage) throws {
+        guard let data = image.standardPrintData else {
+            throw Printer.PrintError.failedToExtractPrintDataFromImage
+        }
+        try printImageData(data)
     }
     
     /// Print the provided image data.
@@ -115,10 +123,15 @@ open class Printer {
         try printFile(at: url)
     }
     
+    /// Print a PDF file at the provided URL.
+    open func printPdfFile(at url: URL) throws {
+        try printFile(at: url)
+    }
+    
     /// Print the provided string.
     open func printString(
         _ string: String,
-        config: Pdf.PageConfiguration
+        config: PageConfiguration
     ) throws {
         let string = NSAttributedString(string: string)
         try printAttributedString(string, config: config)

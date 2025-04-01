@@ -17,6 +17,9 @@ public extension Printer {
         /// The operation could not generate a cache file.
         case cachesDirectoryDoesNotExist
         
+        /// The printer failed to extract image print data.
+        case failedToExtractPrintDataFromImage
+        
         /// The print item is configured with an invalid URL.
         case invalidUrl
         

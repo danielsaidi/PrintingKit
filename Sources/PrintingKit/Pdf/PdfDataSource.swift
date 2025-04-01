@@ -17,6 +17,6 @@ public protocol PdfDataSource {
 
     /// Generate PDF data for the provided configuration.
     func pdfData(
-        withConfiguration config: Pdf.PageConfiguration
+        withConfiguration config: Printer.PageConfiguration
     ) throws -> Data
 }

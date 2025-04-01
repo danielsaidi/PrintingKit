@@ -18,7 +18,7 @@ public extension NSAttributedString {
     }
 
     func pdfData(
-        withConfiguration config: Pdf.PageConfiguration
+        withConfiguration config: Printer.PageConfiguration
     ) throws -> Data {
         #if os(iOS) || os(visionOS)
         try iosPdfData(for: config)
@@ -36,7 +36,7 @@ import AppKit
 @MainActor
 private extension NSAttributedString {
 
-    func macosPdfData(for configuration: Pdf.PageConfiguration) throws -> Data {
+    func macosPdfData(for configuration: Printer.PageConfiguration) throws -> Data {
         do {
             let fileUrl = try macosPdfFileUrl()
             let printInfo = try macosPdfPrintInfo(
@@ -69,7 +69,7 @@ private extension NSAttributedString {
     }
 
     func macosPdfPrintInfo(
-        for configuration: Pdf.PageConfiguration,
+        for configuration: Printer.PageConfiguration,
         fileUrl: URL) throws -> NSPrintInfo {
         let printOpts: [NSPrintInfo.AttributeKey: Any] = [
             .jobDisposition: NSPrintInfo.JobDisposition.save,
@@ -98,7 +98,7 @@ import UIKit
 @MainActor
 private extension NSAttributedString {
 
-    func iosPdfData(for configuration: Pdf.PageConfiguration) throws -> Data {
+    func iosPdfData(for configuration: Printer.PageConfiguration) throws -> Data {
         let pageRenderer = iosPdfPageRenderer(for: configuration)
         let paperRect = configuration.paperRect
         let pdfData = NSMutableData()
@@ -114,7 +114,7 @@ private extension NSAttributedString {
         return pdfData as Data
     }
 
-    func iosPdfPageRenderer(for configuration: Pdf.PageConfiguration) -> UIPrintPageRenderer {
+    func iosPdfPageRenderer(for configuration: Printer.PageConfiguration) -> UIPrintPageRenderer {
         let printFormatter = UISimpleTextPrintFormatter(attributedText: self)
         let paperRect = NSValue(cgRect: configuration.paperRect)
         let printableRect = NSValue(cgRect: configuration.printableRect)

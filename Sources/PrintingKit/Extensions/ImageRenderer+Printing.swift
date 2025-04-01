@@ -15,9 +15,9 @@ extension ImageRenderer {
     /// Get image data that can be used to print the image.
     var imageData: Data? {
         #if os(iOS) || os(visionOS)
-        uiImage?.pngData()
+        uiImage?.standardPrintData
         #elseif os(macOS)
-        nsImage?.jpegData(compressionQuality: 1)
+        nsImage?.standardPrintData
         #else
         nil
         #endif

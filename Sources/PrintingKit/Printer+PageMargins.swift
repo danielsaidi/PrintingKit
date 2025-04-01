@@ -1,5 +1,5 @@
 //
-//  Pdf+PageMargins.swift
+//  Printer+PageMargins.swift
 //  PrintingKit
 //
 //  Created by Daniel Saidi on 2023-08-21.
@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public extension Pdf {
+public extension Printer {
     
     /// This type defines a PDF document page margins.
     struct PageMargins: Equatable {

@@ -1,19 +1,22 @@
-//
-//  PrintItem.swift
-//  PrintingKit
-//
-//  Created by Daniel Saidi on 2023-08-21.
-//  Copyright © 2023-2025 Daniel Saidi. All rights reserved.
-//
-
 #if os(iOS) || os(macOS) || os(visionOS)
 import SwiftUI
+
+public extension Pdf {
+    
+    @available(*, deprecated, renamed: "Printer.PageConfiguration")
+    typealias PageConfiguration = Printer.PageConfiguration
+    
+    @available(*, deprecated, renamed: "Printer.PageMargins")
+    typealias PageMargins = Printer.PageMargins
+}
+
+
 
 @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the Printer class directly.")
 public enum PrintItem {
     
     /// An attributed string with a PDF page configuration.
-    case attributedString(NSAttributedString, configuration: Pdf.PageConfiguration = .standard)
+    case attributedString(NSAttributedString, configuration: Printer.PageConfiguration = .standard)
     
     /// JPG or PNG image data.
     case imageData(Data)
@@ -28,7 +31,7 @@ public enum PrintItem {
     case pdfFile(at: URL?)
     
     /// A plain string with a PDF page configuration.
-    case string(String, configuration: Pdf.PageConfiguration = .standard)
+    case string(String, configuration: Printer.PageConfiguration = .standard)
     
     /// Get a quick look url to the item, if any.
     public var quickLookUrl: URL? {

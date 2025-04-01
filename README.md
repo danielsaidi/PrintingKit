@@ -16,17 +16,20 @@
 
 PrintingKit is a Swift and SwiftUI SDK that helps you print images, strings, views, PDFs etc. directly from your app.
 
-With PrintingKit, you just have to create a `Printer` instance, or use `Printer.shared`, then use it to print any of these supported `PrintItem` types:
+With PrintingKit, you just have to create a `Printer` instance, or use `Printer.shared`, then use it to print any of the following supported printable types:
 
-* `.attributedString(_:configuration:)` - an attributed string.
-* `.imageData(_:)` - JPG or PNG data.
-* `.imageFile(at:)` - a JPG or PNG file at a certain URL.
-* `.pdfData(_:)` - PDF document data.
-* `.pdfFile(at:)` - a PDF document file at a certain URL.
-* `.string(_:configuration:)` - a plain string.
-* `.view(_:withScale:)` - a SwiftUI view.
+* `printAttributedString(_:configuration:)` - print an attributed string.
+* `printData(_:withFileExtension)` - try to print generic data.
+* `printFile(at:)` - try to print a generic file.
+* `printImage(_:)` - print a `UIImage` or `NSImage`.
+* `printImageData(_:)` - print JPG or PNG data.
+* `printImageFile(at:)` - print a JPG or PNG file at a certain URL.
+* `printPdfData(_:)` - print PDF document data.
+* `printPdfFile(at:)` - print a PDF document file at a certain URL.
+* `printString(_:configuration:)` - print a plain string.
+* `printView(_:withScale:)` - print a SwiftUI view.
 
-More types can be added in the future. Feel free to contribute if you have a new type that you'd like to support.
+Note that only certain functions support providing a page configuration, which can specify paper size and margins.
 
 
 
@@ -51,14 +54,8 @@ struct MyView: View {
 
     var body: some View {
         VStack {
-            Button("Print PDF") {
-                try? printer.print(.pdf(at: anyUrl))
-            }
-            Button("Print view") {
-                try? printer.print(image)
-            }
-            Button("Print view without try") {
-                printer.printInTask(image)
+            Button("Print something") {
+                try? printer.print... // Use any of the available print functions
             }
         }
     }

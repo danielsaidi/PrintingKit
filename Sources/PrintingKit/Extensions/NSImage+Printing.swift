@@ -9,14 +9,11 @@
 #if os(macOS)
 import AppKit
 
-private extension NSImage {
+public extension NSImage {
     
-    var cgImage: CGImage? {
-        cgImage(forProposedRect: nil, context: nil, hints: nil)
-    }
-
+    /// Get JPEG data from the image.
     func jpegData(compressionQuality: CGFloat) -> Data? {
-        guard let image = cgImage else { return nil }
+        guard let image = cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
         let bitmap = NSBitmapImageRep(cgImage: image)
         return bitmap.representation(using: .jpeg, properties: [.compressionFactor: compressionQuality])
     }
