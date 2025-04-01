@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Daniel Saidi on 2023-08-21.
-//  Copyright © 2023-2024 Daniel Saidi. All rights reserved.
+//  Copyright © 2023-2025 Daniel Saidi. All rights reserved.
 //
 
 import PrintingKit
@@ -15,18 +15,9 @@ struct ContentView: View {
     
     private let printer = Printer()
     
-    @State
-    private var quickLookUrl: URL?
-    
-    @State
-    private var isGreenCheckmarkSelected = true
-    
-    @State
-    private var text = "Type text here..."
-
-    private var attributedString: NSAttributedString {
-        .init(string: text)
-    }
+    @State var quickLookUrl: URL?
+    @State var isGreenCheckmarkSelected = true
+    @State var text = "Type text here..."
     
     var body: some View {
         NavigationStack {
@@ -46,8 +37,8 @@ struct ContentView: View {
                         title: { TextField("Type text here...", text: $text, axis: .vertical) },
                         icon: { Image.textInput }
                     )
-                    listItem("Print text as string", .text, .string(text))
-                    listItem("Print text as attributed string", .text, .attributedString(attributedString))
+                    listItem("Print as string", .text, .string(text))
+                    listItem("Print as attributed string", .text, .attributedString(.init(string: text)))
                 }
                 Section("View") {
                     Label(
@@ -168,9 +159,7 @@ private extension ContentView {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+#Preview {
     
-    static var previews: some View {
-        ContentView()
-    }
+    ContentView()
 }
