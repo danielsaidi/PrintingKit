@@ -22,49 +22,74 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Files") {
-                    listItem("Print PDF file", .pdf, fileItem(for: "document", "pdf"))
-                    listItem("Print JPG file", .image, fileItem(for: "clouds", "jpg"))
-                    listItem("Print PNG file", .image, fileItem(for: "graphics", "png"))
-                }
-                Section("Data") {
-                    listItem("Print PDF data", .pdf, dataItem(for: "document", "pdf"))
-                    listItem("Print JPG data", .image, dataItem(for: "clouds", "jpg"))
-                    listItem("Print PNG data", .image, dataItem(for: "graphics", "png"))
-                }
-                Section("Text") {
-                    Label(
-                        title: { TextField("Type text here...", text: $text, axis: .vertical) },
-                        icon: { Image.textInput }
-                    )
-                    listItem("Print as string", .text, .string(text))
-                    listItem("Print as attributed string", .text, .attributedString(.init(string: text)))
-                }
-                Section("View") {
-                    Label(
-                        title: {
-                            Picker("Select view:", selection: $isGreenCheckmarkSelected) {
-                                Image.checkmarkBadge.tag(true)
-                                Image.xmarkBadge.tag(false)
-                            }
-                            .pickerStyle(.menu)
-                        },
-                        icon: { Image.image }
-                    )
-                    
-                    printButton("Print the selected view", .view) {
-                        let view = try? PrintItem.view(printableView, withScale: 200)
-                        tryPrintItem(view)
-                    }
-                }
-                Section("Preview") {
-                    printableView.padding()
-                }
+                fileSection
+                dataSection
+                textSection
+                viewSection
             }
             .buttonStyle(.plain)
             .navigationTitle("PrinterKit Demo")
         }
         .quickLookPreview($quickLookUrl)
+    }
+}
+
+private extension ContentView {
+    
+    var fileSection: some View {
+        Section("Files") {
+            fileListItem("Print PDF file", .pdf, "document", "pdf")
+            fileListItem("Print JPG file", .image, "clouds", "jpg")
+            fileListItem("Print PNG file", .image, "graphics", "png")
+        }
+    }
+    
+    var dataSection: some View {
+        Section("Data") {
+            fileDataListItem("Print PDF data", .pdf, "document", "pdf")
+            fileDataListItem("Print JPG data", .image, "clouds", "jpg")
+            fileDataListItem("Print PNG data", .image, "graphics", "png")
+        }
+    }
+    
+    var textSection: some View {
+        Section("Text") {
+            Label(
+                title: { TextField("Type text here...", text: $text, axis: .vertical) },
+                icon: { Image.textInput }
+            )
+            printButton("Print as string", .text) {
+                tryPrint {
+                    try printer.printString(text, config: .standard)
+                }
+            }
+            printButton("Print as attributed string", .text) {
+                tryPrint {
+                    try printer.printAttributedString(.init(string: text), config: .standard)
+                }
+            }
+        }
+    }
+    
+    var viewSection: some View {
+        Section("View") {
+            Label(
+                title: {
+                    Picker("Select view:", selection: $isGreenCheckmarkSelected) {
+                        Image.checkmarkBadge.tag(true)
+                        Image.xmarkBadge.tag(false)
+                    }
+                    .pickerStyle(.menu)
+                },
+                icon: { Image.image }
+            )
+            
+            printButton("Print the selected view", .view) {
+                tryPrint {
+                    try printer.printView(printableView, withScale: 200)
+                }
+            }
+        }
     }
 }
 
@@ -83,49 +108,54 @@ private extension ContentView {
 private extension ContentView {
     
     func data(for file: String, _ ext: String) -> Data? {
-        guard let url = fileUrl(for: file, ext) else { return nil }
+        guard let url = url(for: file, ext) else { return nil }
         return try? Data(contentsOf: url)
     }
     
-    func dataItem(for file: String, _ ext: String) -> PrintItem? {
-        guard let data = data(for: file, ext) else { return nil }
-        switch ext {
-        case "pdf": return .pdfData(data)
-        default: return .imageData(data)
-        }
-    }
-    
-    func fileItem(for file: String, _ ext: String) -> PrintItem {
-        let url = fileUrl(for: file, ext)
-        switch ext {
-        case "pdf": return .pdfFile(at: url)
-        default: return .imageFile(at: url)
-        }
-    }
-    
-    func fileUrl(for file: String, _ ext: String) -> URL? {
+    func url(for file: String, _ ext: String) -> URL? {
         Bundle.main.url(forResource: file, withExtension: ext)
     }
     
-    @ViewBuilder
-    func listItem(
+    func fileListItem(
         _ title: String,
         _ icon: Image,
-        _ item: PrintItem?
+        _ fileName: String,
+        _ fileExtension: String
     ) -> some View {
-        HStack {
+        let url = url(for: fileName, fileExtension)
+        return HStack {
             printButton(title, icon) {
-                if let item {
-                    tryPrintItem(item)
-                } else {
-                    print("Invalid item")
-                }
+                tryPrint { try printer.printFile(at: url) }
             }
-            if let url = item?.quickLookUrl {
+            if let url {
                 quickLookButton(for: url)
             }
         }
     }
+    
+    func fileDataListItem(
+        _ title: String,
+        _ icon: Image,
+        _ fileName: String,
+        _ fileExtension: String
+    ) -> some View {
+        let url = url(for: fileName, fileExtension)
+        return HStack {
+            printButton(title, icon) {
+                tryPrint {
+                    guard let url else { return }
+                    let data = try Data(contentsOf: url)
+                    try printer.printData(data, withFileExtension: fileExtension)
+                }
+            }
+            if let url {
+                quickLookButton(for: url)
+            }
+        }
+    }
+}
+
+private extension ContentView {
     
     func printButton(
         _ title: String,
@@ -135,7 +165,7 @@ private extension ContentView {
         Button(action: action) {
             Label { Text(title) } icon: { icon }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .contentShape(Rectangle())
+                .contentShape(.rect)
         }
     }
     
@@ -149,10 +179,9 @@ private extension ContentView {
         }
     }
     
-    func tryPrintItem(_ item: PrintItem?) {
-        guard let item else { return }
+    func tryPrint(_ action: @escaping () throws -> Void) {
         do {
-            try printer.print(item)
+            try action()
         } catch {
             print(error)
         }
