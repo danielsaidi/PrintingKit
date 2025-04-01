@@ -1,5 +1,5 @@
 <p align="center">
-    <img src ="Resources/Logo_Rounded.png" alt="PrintingKit Logo" title="PrintingKit" />
+    <img src="Resources/Icon.png" alt="Project Icon" width="250" />
 </p>
 
 <p align="center">
@@ -12,9 +12,9 @@
 </p>
 
 
-## About PrintingKit
+# PrintingKit
 
-PrintingKit is a Swift SDK that helps you print images, strings, views, PDFs etc. in Swift and SwiftUI.
+PrintingKit is a Swift and SwiftUI SDK that helps you print images, strings, views, PDFs etc. directly from your app.
 
 With PrintingKit, you just have to create a `Printer` instance, or use `Printer.shared`, then use it to print any of these supported `PrintItem` types:
 
@@ -77,7 +77,7 @@ The online [documentation][Documentation] has more information, articles, code e
 
 ## Demo Application
 
-The `Demo` folder has an app that lets you explore the library.
+The `Demo` folder has a demo app that lets you explore the library.
 
 
 
@@ -91,12 +91,12 @@ Your support makes it possible for me to put more work into these projects and m
 
 ## Contact
 
-Feel free to reach out if you have questions or if you want to contribute in any way:
+Feel free to reach out if you have questions, or want to contribute in any way:
 
 * Website: [danielsaidi.com][Website]
-* Mastodon: [@danielsaidi@mastodon.social][Mastodon]
-* Twitter: [@danielsaidi][Twitter]
 * E-mail: [daniel.saidi@gmail.com][Email]
+* Bluesky: [@danielsaidi@bsky.social][Bluesky]
+* Mastodon: [@danielsaidi@mastodon.social][Mastodon]
 
 
 
@@ -107,15 +107,15 @@ PrintingKit is available under the MIT license. See the [LICENSE][License] file 
 
 
 [Email]: mailto:daniel.saidi@gmail.com
-
 [Website]: https://danielsaidi.com
 [GitHub]: https://github.com/danielsaidi
-[Twitter]: https://twitter.com/danielsaidi
-[Mastodon]: https://mastodon.social/@danielsaidi
 [OpenSource]: https://danielsaidi.com/opensource
 [Sponsors]: https://github.com/sponsors/danielsaidi
 
+[Bluesky]: https://bsky.app/profile/danielsaidi.bsky.social
+[Mastodon]: https://mastodon.social/@danielsaidi
+[Twitter]: https://twitter.com/danielsaidi
+
 [Documentation]: https://danielsaidi.github.io/PrintingKit
 [Getting-Started]: https://danielsaidi.github.io/PrintingKit/documentation/printingkit/getting-started
-
 [License]: https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE
