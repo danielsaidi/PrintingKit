@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.7.1
+
+Thanks to [vliegeois](https://github.com/vliegeois), PrintingKit now targets macOS 10.15 instead of 11.
+
+
+
 ## 0.7
 
 This version replaces `PrintItem` with separate `Printer` functions.
