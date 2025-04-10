@@ -5,7 +5,7 @@ let package = Package(
     name: "PrintingKit",
     platforms: [
         .iOS(.v13),
-        .macOS(.v11),
+        .macOS(.v10_15),
         .tvOS(.v13),
         .watchOS(.v7),
         .visionOS(.v1)
