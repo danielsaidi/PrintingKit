@@ -64,6 +64,7 @@ PrintingKit also has ``Pdf`` utilities, that can be used to configure a PDF docu
 
 ## Configuring your project for macOS
 
-There are two settings that are manadatory for a sandboxed application on macOS (which is default). In the target's "Signing & Capabilities" > "App Sandbox" section 
+There are two settings that are manadatory for a sandboxed application on macOS (which is default). In the target's "Signing & Capabilities" > "App Sandbox" section
+
 1. check the "Printer" checkbox or you'll be met with the error "This application does not support printing." and
 2. set the "User Selected File" type under "File Access" to "Read/Write", or the error "Unable to display save panel …" will show up
