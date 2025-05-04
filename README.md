@@ -65,7 +65,11 @@ struct MyView: View {
 
 PrintingKit also has PDF utilities, which are used to print certain types. Since these utilies are the only ones that support paper size, page margins, etc. we should aim to make more print functions use PDF as print format.
 
-For a sandboxed application (default on macOS) please don't forget to allow for printing in the target's "Signing & Capabilities" > "App Sandbox" section or you'll be met with the error "This application does not support printing.".
+
+
+## macOS Sandbox Configuration
+
+For a sandboxed application (default on macOS) don't forget to allow for printing in the target's "Signing & Capabilities" > "App Sandbox" section or you'll be met with the error "This application does not support printing.".
 
 
 
