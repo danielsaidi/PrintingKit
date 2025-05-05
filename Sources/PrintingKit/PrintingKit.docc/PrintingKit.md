@@ -7,9 +7,26 @@ PrintingKit is a Swift SDK that helps you print images, strings, views, PDFs etc
 
 ![Library logotype](Logo.png)
 
-PrintingKit is a Swift and SwiftUI SDK that helps you print images, strings, views, PDFs etc. directly from your app.
+PrintingKit is a Swift & SwiftUI SDK that can print images, strings, views, files, PDFs, etc. directly from an app. Just create a ``Printer`` instance or use the ``Printer/shared`` printer, then call any of its print functions to print.
 
-With PrintingKit, you just have to create a `Printer` instance, or use `Printer.shared`, then use it to print any of the following supported printable types:
+
+## Installation
+
+PrintingKit can be installed with the Swift Package Manager:
+
+```
+https://github.com/danielsaidi/PrintingKit.git
+```
+
+
+## Supported Platforms
+
+PrintintKit supports `iOS 13` and `macOS 10.5`.
+
+
+## Getting started
+
+To print, just create a ``Printer`` instance, or use the ``Printer/shared`` printer, then use it to print any of the following supported printable types:
 
 * ``Printer/printAttributedString(_:config:)`` - print an attributed string.
 * ``Printer/printData(_:withFileExtension:)`` - try to print generic data.
@@ -22,35 +39,19 @@ With PrintingKit, you just have to create a `Printer` instance, or use `Printer.
 * ``Printer/printString(_:config:)`` - print a plain string.
 * ``Printer/printView(_:withScale:)`` - print a SwiftUI view.
 
-Note that only certain functions support providing a page configuration, which can specify paper size and margins.
-
-PrintingKit works on both iOS and macOS.
-
-
-
-## Installation
-
-PrintingKit can be installed with the Swift Package Manager:
-
-```
-https://github.com/danielsaidi/PrintingKit.git
-```
-
-
-
-## Getting started
-
-To print any of supported print item type, just create a ``Printer`` instance, or use the ``Printer/shared`` printer:
+In SwiftUI, you can either print programatically, when a user taps/clicks a button, etc.:
 
 ```swift
 struct MyView: View {
 
-    let printer = Printer.shared
-
     var body: some View {
         VStack {
             Button("Print something") {
-                try? printer.print... // Use any of the available print functions
+                do {
+                    try? Printer.shared.printString("Hello, world!") 
+                } catch {
+                    print("Handle this \(error)")
+                }
             }
         }
     }
@@ -59,6 +60,12 @@ struct MyView: View {
 
 PrintingKit also has PDF utilities, which are used to print certain types. Since these utilies are the only ones that support paper size, page margins, etc. we should aim to make more print functions use PDF as print format.
 
+> Note: Only some functions support providing a custom page configuration, which can be used to specify paper size and margins. More functions should support this functionality in the future.
+
+
+## macOS Sandbox Configuration
+
+For a sandboxed application (default on macOS), you must allow printing in the target's "Signing & Capabilities" > "App Sandbox" section or, you'll be met with the error "This application does not support printing.".
 
 
 ## Repository
@@ -66,11 +73,9 @@ PrintingKit also has PDF utilities, which are used to print certain types. Since
 For more information, source code, etc., visit the [project repository](https://github.com/danielsaidi/PrintingKit).
 
 
-
 ## License
 
 PrintingKit is available under the MIT license.
-
 
 
 ## Topics
