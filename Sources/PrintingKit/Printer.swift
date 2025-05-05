@@ -15,15 +15,16 @@ import PDFKit
 
 import SwiftUI
 
-/// This class can be used to print any ``PrintItem``.
+/// This class can be used to print various types, like data,
+/// strings, files, images, etc.
 ///
 /// You can use ``Printer/shared`` if you do not want to use
 /// separate instances or custom implementations.
 ///
-/// Note that only some print functions support passing in a
-/// page configuration, which is required to specify a paper
-/// size and page margins. The support for passing in a page
-/// configuration should be extended in future versions.
+/// > Note: Some print functions support page configurations,
+/// which can be used to specify paper size and page margins.
+/// This should be extended to cover more print functions in
+/// future versions.
 @MainActor
 open class Printer {
     
@@ -157,49 +158,5 @@ open class Printer {
         #else
         throw PrintError.unsupportedPlatform
         #endif
-    }
-    
-    
-    
-    // MARK: - Deprecated
-    
-    @available(iOS 16.0, macOS 13.0, *)
-    @available(*, deprecated, message: "Use `printView(_:withScale:)` instead.")
-    open func printViewInTask<Content: View> (
-        _ view: Content,
-        withScale scale: CGFloat = 2
-    ) {
-        #if os(iOS) || os(visionOS) || os(macOS)
-        Task {
-            let renderer = ImageRenderer(content: view)
-            renderer.scale = scale
-            guard let data = renderer.imageData else { throw PrintError.invalidViewData }
-            try? printImageData(data)
-        }
-        #endif
-    }
-    
-    @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the separate print functions instead.")
-    open func canPrint(_ item: PrintItem) -> Bool {
-        switch item {
-        case .attributedString: true
-        case .imageData(let data): data.canCreatePrintFile
-        case .imageFile: true
-        case .pdfData(let data): data.canCreatePrintFile
-        case .pdfFile: true
-        case .string: true
-        }
-    }
-    
-    @available(*, deprecated, message: "The PrintItem concept is deprecated. Use the separate print functions instead.")
-    open func print(_ item: PrintItem) throws {
-        switch item {
-        case .attributedString(let str, let conf): try printAttributedString(str, config: conf)
-        case .imageData(let data): try printImageData(data)
-        case .imageFile(let url): try printImageFile(at: url)
-        case .pdfData(let data): try printPdfData(data)
-        case .pdfFile(let url): try printFile(at: url)
-        case .string(let str, let conf): try printString(str, config: conf)
-        }
     }
 }
