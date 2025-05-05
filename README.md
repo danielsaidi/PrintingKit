@@ -73,6 +73,12 @@ For a sandboxed application (default on macOS) don't forget to allow for printin
 
 
 
+## macOS Sandbox Configuration
+
+For a sandboxed application (default on macOS) don't forget to allow for printing in the target's "Signing & Capabilities" > "App Sandbox" section or you'll be met with the error "This application does not support printing.".
+
+
+
 ## Documentation
 
 The online [documentation][Documentation] has more information, articles, code examples, etc.
