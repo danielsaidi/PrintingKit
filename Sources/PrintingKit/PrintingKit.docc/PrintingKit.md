@@ -7,7 +7,8 @@ PrintingKit is a Swift SDK that helps you print images, strings, views, PDFs etc
 
 ![Library logotype](Logo.png)
 
-PrintingKit is a Swift & SwiftUI SDK that can print images, strings, views, files, PDFs, etc. directly from an app. Just create a ``Printer`` instance or use the ``Printer/shared`` printer, then call any of its print functions to print.
+PrintingKit is a SwiftUI library that lets you print images, strings, views, files, PDFs, etc. from any SwiftUI app. Just create a ``Printer`` instance or use the ``Printer/shared`` printer, then call any of its print functions to print.
+
 
 
 ## Installation
@@ -19,9 +20,10 @@ https://github.com/danielsaidi/PrintingKit.git
 ```
 
 
-## Supported Platforms
+## Support My Work
 
-PrintintKit supports `iOS 13` and `macOS 10.5`.
+You can [become a sponsor][Sponsors] to help me dedicate more time on my various [open-source tools][OpenSource]. Every contribution, no matter the size, makes a real difference in keeping these tools free and actively developed.
+
 
 
 ## Getting started
@@ -63,9 +65,11 @@ PrintingKit also has PDF utilities, which are used to print certain types. Since
 > Note: Only some functions support providing a custom page configuration, which can be used to specify paper size and margins. More functions should support this functionality in the future.
 
 
+
 ## macOS Sandbox Configuration
 
 For a sandboxed application (default on macOS), you must allow printing in the target's "Signing & Capabilities" > "App Sandbox" section or, you'll be met with the error "This application does not support printing.".
+
 
 
 ## Repository
@@ -73,9 +77,11 @@ For a sandboxed application (default on macOS), you must allow printing in the t
 For more information, source code, etc., visit the [project repository](https://github.com/danielsaidi/PrintingKit).
 
 
+
 ## License
 
 PrintingKit is available under the MIT license.
+
 
 
 ## Topics
@@ -90,3 +96,11 @@ PrintingKit is available under the MIT license.
 
 - ``Pdf``
 - ``PdfDataSource``
+
+
+
+[Email]: mailto:daniel.saidi@gmail.com
+[Website]: https://danielsaidi.com
+[GitHub]: https://github.com/danielsaidi
+[OpenSource]: https://danielsaidi.com/opensource
+[Sponsors]: https://github.com/sponsors/danielsaidi
