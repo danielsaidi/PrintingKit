@@ -1,6 +1,6 @@
 # Release Notes
 
-PrinterKit will use semantic versioning after 1.0. 
+[PrintingKit](https://github.com/danielsaidi/PrintingKit) will use semver after 1.0.
 
 Until then, deprecated features may be removed in the next minor version.
 
