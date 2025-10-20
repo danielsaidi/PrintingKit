@@ -6,6 +6,12 @@ Until then, deprecated features may be removed in the next minor version.
 
 
 
+## 0.8
+
+This version updates the package to use Swift 6.1 and the demo to target iOS 26.
+
+
+
 ## 0.7.1
 
 Thanks to [vliegeois](https://github.com/vliegeois), PrintingKit now targets macOS 10.15 instead of 11.

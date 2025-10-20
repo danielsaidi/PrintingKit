@@ -3,9 +3,8 @@
 </p>
 
 <p align="center">
-    <img src="https://img.shields.io/github/v/release/danielsaidi/PrintingKit?color=%2300550&sort=semver" alt="Version" title="Version" />
-    <img src="https://img.shields.io/badge/swift-6.0-orange.svg" alt="Swift 6.0" title="Swift 6.0" />
-    <img src="https://img.shields.io/badge/platform-SwiftUI-blue.svg" alt="Swift UI" title="Swift UI" />
+    <img src="https://img.shields.io/github/v/release/danielsaidi/PrintingKit?color=%2300550&sort=semver" alt="Version" />
+    <img src="https://img.shields.io/badge/swift-6.1-orange.svg" alt="Swift 6.1" />
     <a href="https://danielsaidi.github.io/PrintingKit"><img src="https://img.shields.io/badge/documentation-web-blue.svg" alt="Documentation" /></a>
     <a href="https://github.com/danielsaidi/PrintingKit/blob/master/LICENSE"><img src="https://img.shields.io/github/license/danielsaidi/PrintingKit" alt="MIT License" /></a>
     <a href="https://github.com/sponsors/danielsaidi"><img src="https://img.shields.io/badge/sponsor-GitHub-red.svg" alt="Sponsor my work" /></a>
