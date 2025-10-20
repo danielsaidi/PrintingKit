@@ -3,17 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A9619D4E2A939BD000E7ED0F /* clouds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9619D4D2A939BD000E7ED0F /* clouds.jpg */; };
 		A9619D542A939CFB00E7ED0F /* graphics.png in Resources */ = {isa = PBXBuildFile; fileRef = A9619D532A939CFB00E7ED0F /* graphics.png */; };
 		A9619D582A939FFE00E7ED0F /* document.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A9619D572A939FFE00E7ED0F /* document.pdf */; };
-		A96E0A8E2B2AFE82005DC054 /* Image+Demo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96E0A8D2B2AFE82005DC054 /* Image+Demo.swift */; };
 		A99237C62A938D9400EBFAD6 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99237C52A938D9400EBFAD6 /* DemoApp.swift */; };
 		A99237C82A938D9400EBFAD6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99237C72A938D9400EBFAD6 /* ContentView.swift */; };
-		A99237CA2A938D9500EBFAD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A99237C92A938D9500EBFAD6 /* Assets.xcassets */; };
 		A99237CE2A938D9500EBFAD6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A99237CD2A938D9500EBFAD6 /* Preview Assets.xcassets */; };
 		A99237DB2A938F7000EBFAD6 /* PrintingKit in Frameworks */ = {isa = PBXBuildFile; productRef = A99237DA2A938F7000EBFAD6 /* PrintingKit */; };
 /* End PBXBuildFile section */
@@ -22,15 +20,17 @@
 		A9619D4D2A939BD000E7ED0F /* clouds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clouds.jpg; sourceTree = "<group>"; };
 		A9619D532A939CFB00E7ED0F /* graphics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphics.png; sourceTree = "<group>"; };
 		A9619D572A939FFE00E7ED0F /* document.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = document.pdf; sourceTree = "<group>"; };
-		A96E0A8D2B2AFE82005DC054 /* Image+Demo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Demo.swift"; sourceTree = "<group>"; };
 		A99237C22A938D9400EBFAD6 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A99237C52A938D9400EBFAD6 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		A99237C72A938D9400EBFAD6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		A99237C92A938D9500EBFAD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A99237CB2A938D9500EBFAD6 /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
 		A99237CD2A938D9500EBFAD6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A99237D52A938DA900EBFAD6 /* PrintingKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PrintingKit; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		A9BB903F2EA681E000FAE19B /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A99237BF2A938D9400EBFAD6 /* Frameworks */ = {
@@ -65,11 +65,10 @@
 		A99237C42A938D9400EBFAD6 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				A9BB903F2EA681E000FAE19B /* Resources */,
 				A99237D62A938F0700EBFAD6 /* Files */,
 				A99237C52A938D9400EBFAD6 /* DemoApp.swift */,
 				A99237C72A938D9400EBFAD6 /* ContentView.swift */,
-				A96E0A8D2B2AFE82005DC054 /* Image+Demo.swift */,
-				A99237C92A938D9500EBFAD6 /* Assets.xcassets */,
 				A99237CB2A938D9500EBFAD6 /* Demo.entitlements */,
 				A99237CC2A938D9500EBFAD6 /* Preview Content */,
 			);
@@ -124,6 +123,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				A9BB903F2EA681E000FAE19B /* Resources */,
+			);
 			name = Demo;
 			packageProductDependencies = (
 				A99237DA2A938F7000EBFAD6 /* PrintingKit */,
@@ -173,7 +175,6 @@
 			files = (
 				A99237CE2A938D9500EBFAD6 /* Preview Assets.xcassets in Resources */,
 				A9619D582A939FFE00E7ED0F /* document.pdf in Resources */,
-				A99237CA2A938D9500EBFAD6 /* Assets.xcassets in Resources */,
 				A9619D542A939CFB00E7ED0F /* graphics.png in Resources */,
 				A9619D4E2A939BD000E7ED0F /* clouds.jpg in Resources */,
 			);
@@ -188,7 +189,6 @@
 			files = (
 				A99237C82A938D9400EBFAD6 /* ContentView.swift in Sources */,
 				A99237C62A938D9400EBFAD6 /* DemoApp.swift in Sources */,
-				A96E0A8E2B2AFE82005DC054 /* Image+Demo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +229,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DRIVERKIT_DEPLOYMENT_TARGET = 25.0;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -245,11 +246,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 26.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Debug;
 		};
@@ -287,6 +292,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DRIVERKIT_DEPLOYMENT_TARGET = 25.0;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -297,10 +303,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TVOS_DEPLOYMENT_TARGET = 26.0;
+				WATCHOS_DEPLOYMENT_TARGET = 26.0;
+				XROS_DEPLOYMENT_TARGET = 26.0;
 			};
 			name = Release;
 		};
@@ -317,6 +327,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PrintingKit;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -327,10 +338,8 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielsaidi.printingkit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -355,6 +364,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PrintingKit;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -365,10 +375,8 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.danielsaidi.printingkit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
