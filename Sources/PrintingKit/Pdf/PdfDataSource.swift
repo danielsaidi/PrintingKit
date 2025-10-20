@@ -8,8 +8,7 @@
 
 import Foundation
 
-/// This protocol can be implemented by any type that can be
-/// used to generate PDF data.
+/// This protocol can be implemented by any type that can generate PDF data.
 public protocol PdfDataSource {
     
     /// Generate PDF data.

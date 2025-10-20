@@ -15,16 +15,13 @@ import PDFKit
 
 import SwiftUI
 
-/// This class can be used to print various types, like data,
-/// strings, files, images, etc.
+/// This class can be used to print data, strings, files, images, etc.
 ///
-/// You can use ``Printer/shared`` if you do not want to use
-/// separate instances or custom implementations.
+/// Use ``Printer/shared`` if you don't want to use separate instances or a
+/// custom implementation.
 ///
-/// > Note: Some print functions support page configurations,
-/// which can be used to specify paper size and page margins.
-/// This should be extended to cover more print functions in
-/// future versions.
+/// > Note: Some print functions support page configurations. This can be used to
+/// specify paper size and page margins. This should be added to more functions.
 @MainActor
 open class Printer {
     
