@@ -143,7 +143,7 @@ open class Printer {
     
     /// Print the provided view as an image.
     @available(iOS 16.0, macOS 13.0, *)
-    open func printView<Content: View> (
+    open func printView<Content: View>(
         _ view: Content,
         withScale scale: CGFloat = 2
     ) throws {
